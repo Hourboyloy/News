@@ -25,7 +25,7 @@ function Cards(props) {
     return () => clearTimeout(timer);
   }, [currentIndex]);
   return (
-    <div className=" bg-gray-900  p-4 space-y-3 mx-auto max-w-[1500px]">
+    <div className=" bg-gray-900  p-4 space-y-3 mx-auto max-w-[1520px]">
       <div>
         <ul className=" grid  gap-3  2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1">
           <div
