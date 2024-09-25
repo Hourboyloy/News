@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media (min-width: 1536px) {
+  .isHoverStyle:hover {
+    transform: scale(0.99);
+    transition: all 0.1s ease;
+    box-shadow: 1px 1px 1px gray;
+  }
+  .responsiveforlaptop {
+    display: block;
+  }
+}
+
+/* for loading page */
+.loader {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  animation: spin 1s linear infinite;
+  stroke: rgba(107, 114, 128, 1);
+}
+
+.loading-text {
+  font-weight: 500;
+  color: rgba(107, 114, 128, 1);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
