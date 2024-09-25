@@ -160,10 +160,10 @@ function Cards(props) {
             news1.map((ele, i) => (
               <li
                 data-aos="fade-up"
-                className="w-full rounded-lg group"
+                className="w-full h-full rounded-lg group"
                 key={i + ele}
               >
-                <div className=" isHoverStyle cursor-pointer bg-gray-800  w-full border-gray-900 rounded-lg  shadow-gray-600 ">
+                <div className=" isHoverStyle cursor-pointer bg-gray-800 h-full  w-full border-gray-900 rounded-lg  shadow-gray-600">
                   <div className="h-40 overflow-hidden relative">
                     <Image
                       src={
@@ -450,9 +450,7 @@ function Cards(props) {
                 key={i + ele}
               >
                 <div className=" isHoverStyle cursor-pointer bg-gray-800 h-full  w-full border-gray-900 rounded-lg  shadow-gray-600">
-                  <div
-                    className="h-40 overflow-hidden relative"
-                  >
+                  <div className="h-40 overflow-hidden relative">
                     <Image
                       src={
                         ele.logo.startsWith("http")
