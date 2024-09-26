@@ -8,7 +8,6 @@ import axios from "axios";
 export default function Home() {
   const [news, setNews] = useState([]);
   const [background, setBackground] = useState();
-  const [news1, setNews1] = useState();
   const [news2, setNews2] = useState();
 
   const [trueFalse, setTrueFalse] = useState(false);
@@ -42,17 +41,11 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const tempNews1 = [];
     const tempNews2 = [];
-    news.forEach((element, index) => {
-      if (index >= 2) {
-        tempNews2.push(element);
-      } else {
-        tempNews1.push(element);
-      }
+    news.forEach((element) => {
+      tempNews2.push(element);
     });
     
-    setNews1(tempNews1);
     setNews2(tempNews2);
   }, [news]);
 
@@ -95,7 +88,7 @@ export default function Home() {
         <div>
           {trueFalse ? (
             <div>
-              <Cards news1={news1} news2={news2} />
+              <Cards news2={news2} />
             </div>
           ) : (
             ""
