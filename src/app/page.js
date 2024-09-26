@@ -24,7 +24,7 @@ export default function Home() {
         }
       })
       .catch((err) => {
-        setError(err.message);
+        console.log(err.message);
       });
 
     axios
@@ -36,7 +36,7 @@ export default function Home() {
         }
       })
       .catch((err) => {
-        setError(err.message);
+        console.log(err.message);
       });
   }, []);
 
