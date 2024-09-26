@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from "react";
 import React from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
@@ -420,7 +421,7 @@ function Cards(props) {
                           </span>
                         </div> */}
                       </div>
-                      
+
                       <div
                         className={`${
                           ele.trending
