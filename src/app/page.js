@@ -28,11 +28,11 @@ export default function Home() {
       });
 
     axios
-      .get("https://manage-news-server134.vercel.app/get-all")
+      .get("https://manage-news-server134.vercel.app/user-get-all")
       .then((response) => {
         setNews(response.data.news);
-        if(response.status === 200){
-           setTrueFalse(true);
+        if (response.status === 200) {
+          setTrueFalse(true);
         }
       })
       .catch((err) => {

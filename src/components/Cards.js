@@ -220,8 +220,13 @@ function Cards(props) {
                 className="w-full rounded-lg group h-full"
                 key={i + ele}
               >
-                <div className=" isHoverStyle cursor-pointer bg-gray-800 h-full  w-full border-gray-900 rounded-lg  shadow-gray-600">
+                <div className=" isHoverStyle cursor-pointer bg-gray-800 h-full overflow-hidden  w-full border-gray-900 rounded-lg  shadow-gray-600">
                   <div className="h-40 overflow-hidden relative">
+                    {ele.breakingnews === 1 && (
+                      <div className=" absolute z-10 top-1.5 rounded-sm right-0 bg-orange-600 text-xs font-semibold text-white px-1 py-0.5">
+                        Breaking News
+                      </div>
+                    )}
                     <Image
                       src={
                         ele.photo.startsWith("http")
@@ -233,21 +238,11 @@ function Cards(props) {
                       height={300}
                       alt=""
                     />
-                    <Image
-                      src={
-                        ele.photo.startsWith("http")
-                          ? ele.photo
-                          : `https://manage-news-server134.vercel.app/${ele.photo}`
-                      }
-                      alt=""
-                      width={500}
-                      height={300}
-                      className=" w-5 border h-5 rounded-full"
-                    />
-                    <div className="responsiveforlaptop hidden w-full h-full rounded-lg transition-all duration-500 ease-in-out items-center absolute hover:inset-0  hover:bg-gray-800  hover:bg-opacity-50 z-10 top-0 group-hover:opacity-100  opacity-0">
+
+                    <div className="responsiveforlaptop hidden w-full h-full rounded-lg transition-all duration-500 ease-in-out items-center absolute hover:inset-0  hover:bg-gray-800  hover:bg-opacity-50 z-20 top-0 group-hover:opacity-100  opacity-0">
                       <div
                         className={`
-                          flex justify-center items-center mt-2 space-x-2 -mr-48 duration-75 transition-all`}
+                          flex justify-center items-center mt-2 space-x-2 mr-48 duration-75 transition-all`}
                       >
                         <div className=" w-8 h-8 bg-white flex justify-center items-center rounded-full shadow-slate-400 shadow cursor-pointer">
                           <svg
@@ -286,7 +281,6 @@ function Cards(props) {
                   </div>
                   <div className=" p-3 space-y-2">
                     <div className="flex cursor-pointer space-x-2">
-                      
                       {/* <div>
                         <Image
                           src={
@@ -302,7 +296,7 @@ function Cards(props) {
                       </div> */}
 
                       <div className="flex items-center space-x-1">
-                        <p className=" text-sm text-gray-300 font-semibold">
+                        <p className=" capitalize text-sm text-gray-300 font-semibold">
                           {ele.title}
                         </p>
                         <p className="text-gray-300 text-xs">
@@ -313,11 +307,20 @@ function Cards(props) {
                             const minutes = Math.floor(seconds / 60);
                             const hours = Math.floor(minutes / 60);
                             const days = Math.floor(hours / 24);
+                            const weeks = Math.floor(days / 7);
 
-                            if (days > 0) {
+                            if (weeks > 0) {
+                              return `${weeks} week${weeks > 1 ? "s" : ""} ago`;
+                            } else if (days > 0) {
                               return `${days} day${days > 1 ? "s" : ""} ago`;
+                            } else if (hours > 0) {
+                              return `${hours} hour${hours > 1 ? "s" : ""} ago`;
+                            } else if (minutes > 0) {
+                              return `${minutes} minute${
+                                minutes > 1 ? "s" : ""
+                              } ago`;
                             } else {
-                              return `${hours} h ago`;
+                              return `just now`;
                             }
                           })()}`}
                         </p>

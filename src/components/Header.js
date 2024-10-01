@@ -12,7 +12,6 @@ function Header(props) {
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
-  console.log(background?.bgurl);
 
   // start search
   const [query, setQuery] = useState("");
