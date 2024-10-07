@@ -233,7 +233,7 @@ function Cards(props) {
                           ? ele.photo
                           : `https://manage-news-server134.vercel.app/${ele.photo}`
                       }
-                      className=" w-full rounded-t-lg shadow-gray-600"
+                      className="h-full rounded-t-lg shadow-gray-600"
                       width={500}
                       height={300}
                       alt=""
