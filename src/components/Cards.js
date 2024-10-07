@@ -221,7 +221,7 @@ function Cards(props) {
                 key={i + ele}
               >
                 <div className=" isHoverStyle cursor-pointer bg-gray-800 h-full overflow-hidden  w-full border-gray-900 rounded-lg  shadow-gray-600">
-                  <div className="h-40 overflow-hidden relative">
+                  <div className="h-44 overflow-hidden relative flex items-center justify-center">
                     {ele.breakingnews === 1 && (
                       <div className=" absolute z-10 top-1.5 rounded-sm right-0 bg-orange-600 text-xs font-semibold text-white px-1 py-0.5">
                         Breaking News

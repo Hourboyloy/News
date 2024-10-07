@@ -45,7 +45,7 @@ export default function Home() {
     news.forEach((element) => {
       tempNews2.push(element);
     });
-    
+    tempNews2.reverse();
     setNews2(tempNews2);
   }, [news]);
 
