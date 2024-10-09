@@ -27,7 +27,7 @@ function Cards(props) {
   //   }, 5000);
   //   return () => clearTimeout(timer);
   // }, [currentIndex]);
-  
+
   return (
     <div className=" bg-gray-900  p-4 space-y-3 mx-auto max-w-[1520px]">
       <div>
@@ -228,11 +228,7 @@ function Cards(props) {
                       </div>
                     )}
                     <Image
-                      src={
-                        ele.photo.startsWith("http")
-                          ? ele.photo
-                          : `https://manage-news-server134.vercel.app/${ele.photo}`
-                      }
+                      src={ele.photo}
                       className="h-full rounded-t-lg shadow-gray-600"
                       width={500}
                       height={300}
