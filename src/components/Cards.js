@@ -227,12 +227,20 @@ function Cards(props) {
                         Breaking News
                       </div>
                     )}
-                    <Image
+                    {/* <Image
                       src={ele.photo}
                       className="h-full rounded-t-lg shadow-gray-600"
                       width={500}
                       height={300}
                       alt=""
+                    /> */}
+
+                    <img
+                      src={`${ele.photo}`}
+                      className="h-full rounded-t-lg shadow-gray-600"
+                      width={500}
+                      height={300}
+                      alt="Image description"
                     />
 
                     <div className="responsiveforlaptop hidden w-full h-full rounded-lg transition-all duration-500 ease-in-out items-center absolute hover:inset-0  hover:bg-gray-800  hover:bg-opacity-50 z-20 top-0 group-hover:opacity-100  opacity-0">
