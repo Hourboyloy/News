@@ -300,9 +300,11 @@ function Cards(props) {
                       </div> */}
 
                       <div className="flex items-center space-x-1">
-                        <p className=" capitalize text-sm text-gray-300 font-semibold">
-                          {ele.title}
-                        </p>
+                        {ele.title !== null && (
+                          <p className=" capitalize text-sm text-gray-300 font-semibold">
+                            {ele.title}
+                          </p>
+                        )}
                         <p className="text-gray-300 text-xs">
                           {`. ${(() => {
                             const timeDifference =
