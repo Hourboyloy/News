@@ -144,8 +144,8 @@ export default function Home() {
   }, [news]);
 
   return (
-    <main className="h-full bg-gray-900">
-      <div>
+    <main className="">
+      
         {trueFalse ? (
           <div>
             <Cards news2={news2} />
@@ -153,7 +153,6 @@ export default function Home() {
         ) : (
           ""
         )}
-      </div>
     </main>
   );
 }
