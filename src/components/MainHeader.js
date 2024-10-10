@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "@/components/Loader";
 import Header from "@/components/Header";
-// import MenuCategories from "@/components/MenuCategories";
+import MenuCategories from "@/components/MenuCategories";
 
 function MainHeader() {
   const [background, setBackground] = useState();
@@ -50,9 +50,7 @@ function MainHeader() {
                   background={background}
                 />
               </div>
-              <div>
-                {/* <MenuCategories/> */}
-              </div>
+              <div>{<MenuCategories />}</div>
             </div>
           ) : (
             <div className=" w-0 h-0 overflow-hidden"></div>

@@ -1,16 +1,16 @@
-import React from "react";
-import Link from "next/link";
+import React from 'react'
+
 function MenuCategories() {
   return (
     <div>
-      <div className="flex items-center justify-center space-x-5">
-        <Link>Home</Link>
-        <Link>Technology</Link>
-        <Link>Sport</Link>
-        <Link>Health</Link>
+      <div className="text-white flex items-center justify-center space-x-4">
+        <p>Home</p>
+        <p>Technology</p>
+        <p>Sport</p>
+        <p>Health</p>
       </div>
     </div>
   );
 }
 
-export default MenuCategories;
+export default MenuCategories
