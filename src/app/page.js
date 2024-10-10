@@ -151,7 +151,7 @@ export default function Home() {
             <Cards news2={news2} />
           </div>
         ) : (
-          ""
+          <div>Loading..</div>
         )}
     </main>
   );
