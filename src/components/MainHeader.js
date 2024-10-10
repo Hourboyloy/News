@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "@/components/Loader";
 import Header from "@/components/Header";
-import MenuCategories from "@/components/MenuCategories";
+// import MenuCategories from "@/components/MenuCategories";
 
 function MainHeader() {
   const [background, setBackground] = useState();
@@ -51,7 +51,7 @@ function MainHeader() {
                 />
               </div>
               <div>
-                <MenuCategories/>
+                {/* <MenuCategories/> */}
               </div>
             </div>
           ) : (
