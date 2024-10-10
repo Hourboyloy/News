@@ -14,7 +14,7 @@ function MenuCategories() {
 
   return (
     <div>
-      <div className="text-white flex items-center justify-center space-x-3 py-6">
+      <div className="text-white flex items-center justify-center space-x-3 pb-6 pt-9">
         <Link className={linkClasses("/")} href="/">
           Home
         </Link>
