@@ -7,7 +7,7 @@ function MenuCategories() {
   const pathname = usePathname();
 
   const linkClasses = (path) => {
-    return `outline-none focus:outline-none border border-gray-700 px-2.5 py-1 rounded-md text-sm hover:bg-gray-600 transition-all duration-300 ${
+    return `outline-none focus:outline-none select-none border border-gray-700 px-2.5 py-1 rounded-md text-sm hover:bg-gray-600 transition-all duration-300 ${
       pathname === path ? "text-red-500" : ""
     }`;
   };
