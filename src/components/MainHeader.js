@@ -50,12 +50,17 @@ function MainHeader() {
                   background={background}
                 />
               </div>
-              <div>{<MenuCategories />}</div>
             </div>
           ) : (
             <div className=" w-0 h-0 overflow-hidden"></div>
           )}
         </div>
+
+        {background ? (
+          <div>{<MenuCategories />}</div>
+        ) : (
+          <div className=" w-0 h-0 overflow-hidden"></div>
+        )}
       </div>
     </div>
   );
