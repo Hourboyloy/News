@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import MainHeader from "@/components/MainHeader";
-
+// import MenuCategories from "@/components/MenuCategories";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div>
+        <div className={" bg-[#111827]"}>
           <MainHeader />
         </div>
         <div>{children}</div>

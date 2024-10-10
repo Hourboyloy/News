@@ -148,7 +148,7 @@ export default function Home() {
       
         {trueFalse ? (
           <div>
-            <Cards news2={news2} />
+            <Cards news={news2} />
           </div>
         ) : (
           <div>Loading..</div>

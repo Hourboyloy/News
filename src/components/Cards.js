@@ -6,7 +6,7 @@ import "aos/dist/aos.css";
 // import Image from "next/image";
 
 function Cards(props) {
-  const { news2 } = props;
+  const { news } = props;
   // const [currentIndex, setCurrentIndex] = useState(0);
   // var handleChangeCurrentIndex = (value) => {
   //   setCurrentIndex(value);
@@ -212,8 +212,8 @@ function Cards(props) {
             </div>
           </div> */}
 
-          {news2?.length > 0 &&
-            news2.map((ele, i) => (
+          {news?.length > 0 &&
+            news.map((ele, i) => (
               <li
                 data-aos="fade-up"
                 className="w-full h-full rounded-lg"
