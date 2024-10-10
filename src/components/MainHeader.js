@@ -57,7 +57,7 @@ function MainHeader() {
         </div>
 
         {background ? (
-          <div>{<MenuCategories />}</div>
+          <div className="z-10">{<MenuCategories />}</div>
         ) : (
           <div className=" w-0 h-0 overflow-hidden"></div>
         )}
