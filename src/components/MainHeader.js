@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "@/components/Loader";
 import Header from "@/components/Header";
+import MenuCategories from "./MenuCategories";
+
 function MainHeader() {
   const [background, setBackground] = useState();
   const [catchValueInput, setCatchValueInput] = useState("");
@@ -25,6 +27,7 @@ function MainHeader() {
         console.log(err.message);
       });
   }, []);
+
   return (
     <div>
       <div className="relative space-y-0 bg-gray-900">
@@ -37,21 +40,22 @@ function MainHeader() {
               <Loader />
             </div>
           )}
+
           {background ? (
             <div className=" ">
-              <Header
-                catchValueInput={catchValueInput}
-                handleCatchValueInput={handleCatchValueInput}
-                background={background}
-              />
+              <div>
+                <Header
+                  catchValueInput={catchValueInput}
+                  handleCatchValueInput={handleCatchValueInput}
+                  background={background}
+                />
+              </div>
+              <div>
+                <MenuCategories/>
+              </div>
             </div>
           ) : (
-            <div className=" w-0 h-0 overflow-hidden">
-              <Header
-                catchValueInput={catchValueInput}
-                handleCatchValueInput={handleCatchValueInput}
-              />
-            </div>
+            <div className=" w-0 h-0 overflow-hidden"></div>
           )}
         </div>
       </div>
