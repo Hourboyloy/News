@@ -212,7 +212,7 @@ function Cards(props) {
             </div>
           </div> */}
 
-          {news2.length > 0 &&
+          {news2?.length > 0 &&
             news2.map((ele, i) => (
               <li
                 data-aos="fade-up"
