@@ -1,10 +1,9 @@
 "use client";
-import { useEffect } from "react";
-import React from "react";
+import React, { useEffect } from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
 // import { arrayImage } from "@/database/arrayImage";
-import Image from "next/image";
+// import Image from "next/image";
 
 function Cards(props) {
   const { news2 } = props;
@@ -217,17 +216,23 @@ function Cards(props) {
             news2.map((ele, i) => (
               <li
                 data-aos="fade-up"
-                className="w-full rounded-lg group h-full"
+                className="w-full h-full rounded-lg"
                 key={i + ele}
               >
-                <div className=" isHoverStyle cursor-pointer bg-gray-800 h-full overflow-hidden  w-full border-gray-900 rounded-lg  shadow-gray-600">
-                  <div className="h-44 overflow-hidden relative flex items-center justify-center">
-                    {ele.breakingnews === 1 && (
-                      <div className=" absolute z-10 top-1.5 rounded-sm right-0 bg-orange-600 text-xs font-semibold text-white px-1 py-0.5">
-                        Breaking News
-                      </div>
-                    )}
-                    {/* <Image
+                <a
+                  href={`${ele.articleUrl}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full h-full rounded-lg group outline-none focus:outline-none"
+                >
+                  <div className=" isHoverStyle cursor-pointer bg-gray-800 h-full overflow-hidden  w-full border-gray-900 rounded-lg  shadow-gray-600">
+                    <div className="h-44 overflow-hidden relative flex items-center justify-center">
+                      {ele.breakingnews === 1 && (
+                        <div className=" absolute z-10 top-1.5 rounded-sm right-0 bg-orange-600 text-xs font-semibold text-white px-1 py-0.5">
+                          Breaking News
+                        </div>
+                      )}
+                      {/* <Image
                       src={ele.photo}
                       className="h-full rounded-t-lg shadow-gray-600"
                       width={500}
@@ -235,57 +240,57 @@ function Cards(props) {
                       alt=""
                     /> */}
 
-                    <img
-                      src={`${ele.photo}`}
-                      className="h-full rounded-t-lg shadow-gray-600"
-                      width={500}
-                      height={300}
-                      alt="Image description"
-                    />
+                      <img
+                        src={`${ele.photo}`}
+                        className="h-full rounded-t-lg shadow-gray-600"
+                        width={500}
+                        height={300}
+                        alt="Image description"
+                      />
 
-                    <div className="responsiveforlaptop hidden w-full h-full rounded-lg transition-all duration-500 ease-in-out items-center absolute hover:inset-0  hover:bg-gray-800  hover:bg-opacity-50 z-20 top-0 group-hover:opacity-100  opacity-0">
-                      <div
-                        className={`
+                      <div className="responsiveforlaptop hidden w-full h-full rounded-t-lg transition-all duration-500 ease-in-out items-center absolute group-hover:inset-0  group-hover:bg-gray-800  group-hover:bg-opacity-50 z-20 top-0 group-hover:opacity-100  opacity-0">
+                        <div
+                          className={`
                           flex justify-center items-center mt-2 space-x-2 mr-48 duration-75 transition-all`}
-                      >
-                        <div className=" w-8 h-8 bg-white flex justify-center items-center rounded-full shadow-slate-400 shadow cursor-pointer">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-6 h-6 "
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M6 18 18 6M6 6l12 12"
-                            />
-                          </svg>
-                        </div>
-                        <div className=" w-8 h-8 bg-white flex justify-center items-center rounded-full shadow-slate-400 shadow cursor-pointer">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-6 h-6"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                            />
-                          </svg>
+                        >
+                          <div className=" w-8 h-8 bg-white flex justify-center items-center rounded-full shadow-slate-400 shadow cursor-pointer">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="w-6 h-6 "
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6 18 18 6M6 6l12 12"
+                              />
+                            </svg>
+                          </div>
+                          <div className=" w-8 h-8 bg-white flex justify-center items-center rounded-full shadow-slate-400 shadow cursor-pointer">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="w-6 h-6"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                              />
+                            </svg>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className=" p-3 space-y-2">
-                    <div className="flex cursor-pointer space-x-2">
-                      {/* <div>
+                    <div className=" p-3 space-y-2">
+                      <div className="flex cursor-pointer space-x-2">
+                        {/* <div>
                         <Image
                           src={
                             ele.logo.startsWith("http")
@@ -299,52 +304,56 @@ function Cards(props) {
                         />
                       </div> */}
 
-                      <div className="flex items-center space-x-1">
-                        {ele.title !== null && (
-                          <p className=" capitalize text-sm text-gray-300 font-semibold">
-                            {ele.title}
+                        <div className="flex items-center space-x-1">
+                          {ele.title !== null && (
+                            <p className=" capitalize text-sm text-gray-300 font-semibold">
+                              {ele.title}
+                            </p>
+                          )}
+                          <p className="text-gray-300 text-xs">
+                            {`. ${(() => {
+                              const timeDifference =
+                                Date.now() - new Date(ele.createdAt).getTime();
+                              const seconds = Math.floor(timeDifference / 1000);
+                              const minutes = Math.floor(seconds / 60);
+                              const hours = Math.floor(minutes / 60);
+                              const days = Math.floor(hours / 24);
+                              const weeks = Math.floor(days / 7);
+
+                              if (weeks > 0) {
+                                return `${weeks} week${
+                                  weeks > 1 ? "s" : ""
+                                } ago`;
+                              } else if (days > 0) {
+                                return `${days} day${days > 1 ? "s" : ""} ago`;
+                              } else if (hours > 0) {
+                                return `${hours} hour${
+                                  hours > 1 ? "s" : ""
+                                } ago`;
+                              } else if (minutes > 0) {
+                                return `${minutes} minute${
+                                  minutes > 1 ? "s" : ""
+                                } ago`;
+                              } else {
+                                return `just now`;
+                              }
+                            })()}`}
                           </p>
-                        )}
-                        <p className="text-gray-300 text-xs">
-                          {`. ${(() => {
-                            const timeDifference =
-                              Date.now() - new Date(ele.createdAt).getTime();
-                            const seconds = Math.floor(timeDifference / 1000);
-                            const minutes = Math.floor(seconds / 60);
-                            const hours = Math.floor(minutes / 60);
-                            const days = Math.floor(hours / 24);
-                            const weeks = Math.floor(days / 7);
-
-                            if (weeks > 0) {
-                              return `${weeks} week${weeks > 1 ? "s" : ""} ago`;
-                            } else if (days > 0) {
-                              return `${days} day${days > 1 ? "s" : ""} ago`;
-                            } else if (hours > 0) {
-                              return `${hours} hour${hours > 1 ? "s" : ""} ago`;
-                            } else if (minutes > 0) {
-                              return `${minutes} minute${
-                                minutes > 1 ? "s" : ""
-                              } ago`;
-                            } else {
-                              return `just now`;
-                            }
-                          })()}`}
-                        </p>
+                        </div>
                       </div>
-                    </div>
-                    <div>
-                      <div className=" font-normal text-sm text-white">
-                        {ele.description.length > 64 ? (
-                          <p>{ele.description.slice(0, 63)}...</p>
-                        ) : (
-                          ele.description
-                        )}
+                      <div>
+                        <div className=" font-normal text-sm text-white">
+                          {ele.description.length > 64 ? (
+                            <p>{ele.description.slice(0, 63)}...</p>
+                          ) : (
+                            ele.description
+                          )}
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="text-gray-400 flex justify-between items-center ">
-                      <div className=" flex items-center space-x-3">
-                        {/* <div className="cursor-pointer flex space-x-1 items-center">
+                      <div className="text-gray-400 flex justify-between items-center ">
+                        <div className=" flex items-center space-x-3">
+                          {/* <div className="cursor-pointer flex space-x-1 items-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -374,7 +383,7 @@ function Cards(props) {
                           </div>
                         </div> */}
 
-                        {/* <div className="cursor-pointer flex space-x-1 items-center">
+                          {/* <div className="cursor-pointer flex space-x-1 items-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -402,7 +411,7 @@ function Cards(props) {
                           </span>
                         </div> */}
 
-                        {/* <div className="cursor-pointer flex space-x-1 items-center">
+                          {/* <div className="cursor-pointer flex space-x-1 items-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -429,34 +438,35 @@ function Cards(props) {
                               `}
                           </span>
                         </div> */}
-                      </div>
+                        </div>
 
-                      <div
-                        className={`${
-                          ele.trending
-                            ? "cursor-pointer justify-center items-center space-x-1 flex"
-                            : " w-0 h-0 overflow-hidden"
-                        }`}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-[18px] text-gray-300"
+                        <div
+                          className={`${
+                            ele.trending
+                              ? "cursor-pointer justify-center items-center space-x-1 flex"
+                              : " w-0 h-0 overflow-hidden"
+                          }`}
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"
-                          />
-                        </svg>
-                        <span className=" text-xs">Trending</span>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-[18px] text-gray-300"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"
+                            />
+                          </svg>
+                          <span className=" text-xs">Trending</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </a>
               </li>
             ))}
         </ul>
