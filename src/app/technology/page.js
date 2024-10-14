@@ -18,7 +18,7 @@ function Page() {
   const handleGetLists = async () => {
     const data = await HandleApi(
       "get",
-      "http://localhost:5051/fillter-category/បច្ចេកវិទ្យា"
+      "https://manage-news-server134.vercel.app/បច្ចេកវិទ្យា"
     );
     if (data.message === "Get category បច្ចេកវិទ្យា successfuly") {
       setLists(data.results.reverse());
