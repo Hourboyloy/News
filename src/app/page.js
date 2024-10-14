@@ -93,7 +93,7 @@ export default function Page() {
 
   if (loading) {
     return (
-      <div className="text-white text-center text-xl font-semibold pt-4">
+      <div className="text-white text-center pt-4">
         Loading...
       </div>
     );
@@ -101,7 +101,7 @@ export default function Page() {
 
   if (error) {
     return (
-      <div className="text-white text-center text-xl font-semibold pt-4">
+      <div className="text-white text-center pt-4">
         Error: {error}
       </div>
     );
