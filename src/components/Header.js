@@ -87,9 +87,10 @@ function Header(props) {
   return (
     <div
       style={{ backgroundImage: `url(${background?.bgurl})` }}
-      className="bg-no-repeat bg-cover bg-centerc h-screen w-full relative flex justify-center items-center inset-0"
+      className="bg-no-repeat bg-cover bg-center h-screen w-full relative overflow-hidden flex justify-center items-center inset-0"
     >
       <div className="h-screen inset-0 bg-opacity-20 bg-gray-500 absolute"></div>
+      
       <div className="flex justify-center items-center w-full h-full">
         <div className="w-full h-full flex flex-col justify-center items-center">
           <div className="absolute right-5 top-4 flex space-x-4">

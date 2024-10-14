@@ -62,7 +62,7 @@ function MainHeader() {
           <div className=" w-0 h-0 overflow-hidden"></div>
         )}
       </div>
-    </div>
+    </div>  
   );
 }
 

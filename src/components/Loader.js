@@ -82,7 +82,7 @@
              strokeWidth="24"
            ></line>
          </svg>
-         <span className="loading-text 2xl:text-5xl xl:text-3xl lg:text-3xl md:text-2xl text-lg    ">
+         <span className="loading-text 2xl:text-5xl xl:text-3xl lg:text-3xl md:text-2xl text-lg">
            Loading...
          </span>
        </div>

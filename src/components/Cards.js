@@ -304,13 +304,13 @@ function Cards(props) {
                         />
                       </div> */}
 
-                        <div className="flex items-center space-x-1">
-                          {ele.title !== null && (
-                            <p className=" capitalize text-sm text-gray-300 font-semibold">
-                              {ele.title}
+                        <div className="flex flex-wrap items-center">
+                          {ele.category !== null && (
+                            <p className="pr-1 capitalize text-sm text-gray-300 font-semibold">
+                              {ele.category}
                             </p>
                           )}
-                          <p className="text-gray-300 text-xs">
+                          <p className="text-gray-300 text-[12px]">
                             {`. ${(() => {
                               const timeDifference =
                                 Date.now() - new Date(ele.createdAt).getTime();
@@ -325,14 +325,12 @@ function Cards(props) {
                                   weeks > 1 ? "s" : ""
                                 } ago`;
                               } else if (days > 0) {
-                                return `${days} day${days > 1 ? "s" : ""} ago`;
+                                return `${days}day${days > 1 ? "s" : ""} ago`;
                               } else if (hours > 0) {
-                                return `${hours} hour${
-                                  hours > 1 ? "s" : ""
-                                } ago`;
+                                return `${hours}h${hours > 1 ? "" : ""} ago`;
                               } else if (minutes > 0) {
-                                return `${minutes} minute${
-                                  minutes > 1 ? "s" : ""
+                                return `${minutes}min${
+                                  minutes > 1 ? "" : ""
                                 } ago`;
                               } else {
                                 return `just now`;
@@ -343,17 +341,17 @@ function Cards(props) {
                       </div>
                       <div>
                         <div className=" font-normal text-sm text-white">
-                          {ele.description.length > 64 ? (
-                            <p>{ele.description.slice(0, 63)}...</p>
+                          {ele.title.length > 64 ? (
+                            <p>{ele.title.slice(0, 63)}...</p>
                           ) : (
-                            ele.description
+                            ele.title
                           )}
                         </div>
                       </div>
 
                       <div className="text-gray-400 flex justify-between items-center ">
-                        <div className=" flex items-center space-x-3">
-                          {/* <div className="cursor-pointer flex space-x-1 items-center">
+                        {/* <div className=" flex items-center space-x-3">
+                          <div className="cursor-pointer flex space-x-1 items-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -381,9 +379,9 @@ function Cards(props) {
                               ${(ele.likes / 1000).toFixed(1)}k
                               `}
                           </div>
-                        </div> */}
+                        </div>
 
-                          {/* <div className="cursor-pointer flex space-x-1 items-center">
+                          <div className="cursor-pointer flex space-x-1 items-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -409,9 +407,9 @@ function Cards(props) {
                               ${(ele.noLikes / 1000).toFixed(1)}k
                               `}
                           </span>
-                        </div> */}
+                        </div>
 
-                          {/* <div className="cursor-pointer flex space-x-1 items-center">
+                          <div className="cursor-pointer flex space-x-1 items-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -437,8 +435,10 @@ function Cards(props) {
                               ${(ele.commant / 1000).toFixed(1)}k
                               `}
                           </span>
-                        </div> */}
                         </div>
+                        </div> */}
+
+                        <div className="text-xs">{ele.createdAt.split("T")[0]}</div>
 
                         <div
                           className={`${
