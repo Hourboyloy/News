@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { HandleApi } from "@/API/APIHelper";
 import Cards from "@/components/Cards";
 
-function page() {
+function Page() {
   const [lists, setLists] = useState([]);
    const [trueFalse, setTrueFalse] = useState(false);
 
@@ -48,4 +48,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

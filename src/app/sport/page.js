@@ -3,17 +3,17 @@ import React, { useEffect, useState } from "react";
 import { HandleApi } from "@/API/APIHelper";
 import Cards from "@/components/Cards";
 
-function page() {
+function Page() {
   const [lists, setLists] = useState([]);
-   const [trueFalse, setTrueFalse] = useState(false);
+  const [trueFalse, setTrueFalse] = useState(false);
 
-    // const handleRouteChange = () => {
-    //   if (typeof window !== "undefined") {
-    //     window.scrollTo(0, 0); // Scroll to the top of the page
-    //   }
-    // };
-    // handleRouteChange();
-    
+  // const handleRouteChange = () => {
+  //   if (typeof window !== "undefined") {
+  //     window.scrollTo(0, 0); // Scroll to the top of the page
+  //   }
+  // };
+  // handleRouteChange();
+
   const handleGetLists = async () => {
     const data = await HandleApi(
       "get",
@@ -29,7 +29,7 @@ function page() {
   useEffect(() => {
     handleGetLists();
   }, []);
-  
+
   return (
     <div>
       <div>
@@ -47,4 +47,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
