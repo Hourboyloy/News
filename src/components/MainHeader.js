@@ -35,7 +35,7 @@ function MainHeader() {
           {background ? (
             ""
           ) : (
-            <div className=" h-screen flex justify-center items-center bg-white">
+            <div className=" h-screen flex justify-center items-center bg-white overflow-hidden">
               {/*<div className="loader rounded text-sm sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"></div> */}
               <Loader />
             </div>
