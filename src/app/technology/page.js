@@ -39,9 +39,7 @@ function Page() {
             <Cards news={lists} />
           </div>
         ) : (
-          <div className="text-white text-center text-xl pt-4 font-semibold">
-            Loading...
-          </div>
+          <div className="text-white text-center pt-4">Loading...</div>
         )}
       </div>
     </div>

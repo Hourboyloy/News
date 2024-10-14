@@ -114,7 +114,7 @@ export default function Page() {
           <Cards news={news} /> {/* Pass reversed news directly to Cards */}
         </div>
       ) : (
-        <div className="text-white text-center text-xl font-semibold pt-4">
+        <div className="text-white text-center pt-4">
           Loading...
         </div>
       )}
