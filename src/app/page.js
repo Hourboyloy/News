@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Cards from "@/components/Cards";
 import axios from "axios";
 
-export default function page() {
+export default function Page() {
   const [news, setNews] = useState([]);
   const [news2, setNews2] = useState();
   const [trueFalse, setTrueFalse] = useState(false);
