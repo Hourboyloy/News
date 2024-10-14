@@ -47,7 +47,7 @@ export default function Page() {
           <Cards news={news2} />
         </div>
       ) : (
-        <div className="text-white text-center text-xl font-semibold">Loading...</div>
+        <div className="text-white text-center text-xl font-semibold pt-4">Loading...</div>
       )}
     </main>
   );

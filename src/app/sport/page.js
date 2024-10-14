@@ -38,7 +38,7 @@ function Page() {
             <Cards news={lists} />
           </div>
         ) : (
-          <div className="text-white text-center text-xl font-semibold">
+          <div className="text-white text-center text-xl pt-4 font-semibold">
             Loading...
           </div>
         )}
