@@ -5,8 +5,7 @@
 @media (min-width: 1536px) {
   .isHoverStyle:hover {
     transform: scale(0.99);
-    transition: all 0.1s ease;
-    box-shadow: 1px 1px 1px gray;
+    transition: all 0.3s ease-in-out;
   }
   .responsiveforlaptop {
     display: block;
@@ -31,6 +30,40 @@
 
 @keyframes spin {
   to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+/* From Uiverse.io by Fernando-sv */ 
+.loadertwo {
+  border: 4px solid gray;
+  border-left-color: transparent;
+  border-radius: 50%;
+}
+
+.loadertwo {
+  border: 4px solid gray;
+  border-left-color: transparent;
+  width: 34px;
+  height: 34px;
+}
+
+.loadertwo {
+  border: 4px solid gray;
+  border-left-color: transparent;
+  width: 34px;
+  height: 34px;
+  animation: spin89345 1s linear infinite;
+}
+
+@keyframes spin89345 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
     transform: rotate(360deg);
   }
 }

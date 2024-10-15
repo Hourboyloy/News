@@ -18,7 +18,7 @@
 
 //   useEffect(() => {
 //     axios
-//       .get("http://localhost:5051/user-get-all")
+//       .get("https://manage-news-server134.vercel.app/user-get-all")
 //       .then((response) => {
 //         setNews(response.data.news);
 //         if (response.status === 200) {
