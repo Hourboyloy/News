@@ -1,46 +1,31 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { HandleApi } from "@/API/APIHelper";
+import React, { useState, useEffect } from "react";
+import { useNewsWeb } from "@/context/NewsContext";
 import Cards from "@/components/Cards";
 
 function Page() {
+  const { news, loading } = useNewsWeb();
   const [lists, setLists] = useState([]);
-  const [trueFalse, setTrueFalse] = useState(false);
+  const filteredNews = news.filter(
+    (newsItem) => newsItem.category === "កីឡា"
+  );
 
-  // const handleRouteChange = () => {
-  //   if (typeof window !== "undefined") {
-  //     window.scrollTo(0, 0); // Scroll to the top of the page
-  //   }
-  // };
-  // handleRouteChange();
-
-  const handleGetLists = async () => {
-    const data = await HandleApi(
-      "get",
-      "https://manage-news-server134.vercel.app/fillter-category/កីឡា"
-    );
-    if (data.message === "Get category កីឡា successfuly") {
-      setLists(data.results.reverse());
-      setTrueFalse(true);
-    } else {
-      console.log("Category កីឡា not found!");
-    }
-  };
+  // Set filtered news to lists
   useEffect(() => {
-    handleGetLists();
-  }, []);
+    setLists(filteredNews);
+  }, [news]);
 
   return (
     <div>
-      <div>
-        {trueFalse ? (
-          <div>
-            <Cards news={lists} />
-          </div>
+      {loading.news === false && loading.background === false ? (
+        lists.length > 0 ? (
+          <Cards news={lists} /> // Pass reversed news directly to Cards component
         ) : (
-          <div className="text-white text-center pt-4">Loading...</div>
-        )}
-      </div>
+          <div className="text-white text-center pt-4">No news available.</div>
+        )
+      ) : (
+        ""
+      )}
     </div>
   );
 }

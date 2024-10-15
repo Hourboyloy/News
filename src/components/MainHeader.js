@@ -1,48 +1,23 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import Loader from "@/components/Loader";
 import Header from "@/components/Header";
 import MenuCategories from "@/components/MenuCategories";
+import { useNewsWeb } from "@/context/NewsContext"; 
 
 function MainHeader() {
-  const [background, setBackground] = useState();
+   const { background, loading } = useNewsWeb();
   const [catchValueInput, setCatchValueInput] = useState("");
   const handleCatchValueInput = (value) => {
     setCatchValueInput(value);
   };
 
-  useEffect(() => {
-    axios
-      .get("https://manage-news-server134.vercel.app/background-seted")
-      .then((response) => {
-        if (
-          response.status == 200 &&
-          response.data.message !== "No document with seted=true found"
-        ) {
-          return setBackground(response.data.seted);
-        }
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
-
   return (
     <div>
       <div className="relative space-y-0 bg-gray-900">
         <div>
-          {background ? (
-            ""
-          ) : (
-            <div className=" h-screen flex justify-center items-center bg-white overflow-hidden">
-              {/*<div className="loader rounded text-sm sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"></div> */}
-              <Loader />
-            </div>
-          )}
-
-          {background ? (
-            <div className=" ">
+          {loading.background === false && loading.news === false ? (
+            <div className="">
               <div>
                 <Header
                   catchValueInput={catchValueInput}
@@ -50,19 +25,16 @@ function MainHeader() {
                   background={background}
                 />
               </div>
+              <div className="z-10 sticky">{<MenuCategories />}</div>
             </div>
           ) : (
-            <div className=" w-0 h-0 overflow-hidden"></div>
+            <div className=" h-screen flex justify-center items-center bg-white overflow-hidden">
+              <Loader />
+            </div>
           )}
         </div>
-
-        {background ? (
-          <div className="z-10 sticky">{<MenuCategories />}</div>
-        ) : (
-          <div className=" w-0 h-0 overflow-hidden"></div>
-        )}
       </div>
-    </div>  
+    </div>
   );
 }
 

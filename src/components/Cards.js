@@ -295,7 +295,7 @@
 //                           src={
 //                             ele.logo.startsWith("http")
 //                               ? ele.logo
-//                               : `https://manage-news-server134.vercel.app/${ele.logo}`
+//                               : `http://localhost:5051/${ele.logo}`
 //                           }
 //                           alt=""
 //                           width={500}
@@ -726,7 +726,7 @@ function Cards(props) {
             }, 500); // Delay for 1 second before setting the image to render
           }
         });
-      }, 1000); // 1 second delay for rendering news
+      },500); // 1 second delay for rendering news
     } else {
       setHasMoreNews(false); // Stop fetching if no more items are left
     }

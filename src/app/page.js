@@ -15,11 +15,10 @@
 //   //  };
 
 //   //  handleRouteChange();
-   
 
 //   useEffect(() => {
 //     axios
-//       .get("https://manage-news-server134.vercel.app/user-get-all")
+//       .get("http://localhost:5051/user-get-all")
 //       .then((response) => {
 //         setNews(response.data.news);
 //         if (response.status === 200) {
@@ -53,70 +52,27 @@
 //   );
 // }
 
-
-
-
-
-
-
+// src/app/page.js
 
 
 
 "use client";
-import { useEffect, useState } from "react";
 import Cards from "@/components/Cards";
-import axios from "axios";
+import { useNewsWeb } from "@/context/NewsContext"; // Import the custom hook
 
 export default function Page() {
-  const [news, setNews] = useState([]); // Initialize with an empty array
-  const [trueFalse, setTrueFalse] = useState(false);
-  const [loading, setLoading] = useState(true); // Track loading state
-  const [error, setError] = useState(null); // Track any error
-
-  useEffect(() => {
-    axios
-      .get("https://manage-news-server134.vercel.app/user-get-all")
-      .then((response) => {
-        if (response.status === 200) {
-          setNews(response.data.news.reverse()); // Reverse directly while setting news
-          setTrueFalse(true); // Indicate that data is successfully fetched
-        }
-      })
-      .catch((err) => {
-        console.error("Error fetching news:", err.message);
-        setError(err.message); // Set error if something goes wrong
-      })
-      .finally(() => {
-        setLoading(false); // Set loading to false once the request finishes
-      });
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="text-white text-center pt-4">
-        Loading...
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-white text-center pt-4">
-        Error: {error}
-      </div>
-    );
-  }
+  const { news, loading } = useNewsWeb(); // Get news, loading, and error from context
 
   return (
-    <main className="">
-      {trueFalse ? (
-        <div>
-          <Cards news={news} /> {/* Pass reversed news directly to Cards */}
-        </div>
+    <main>
+      {loading.news === false && loading.background === false ? (
+        news.length > 0 ? (
+          <Cards news={news} /> // Pass reversed news directly to Cards component
+        ) : (
+          <div className="text-white text-center pt-4">No news available.</div>
+        )
       ) : (
-        <div className="text-white text-center pt-4">
-          Loading...
-        </div>
+        ""
       )}
     </main>
   );

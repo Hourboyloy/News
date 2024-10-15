@@ -69,6 +69,9 @@ function Header(props) {
         val
       )}`;
       window.open(searchUrl, "_blank");
+      // Clear input and suggestions after pressing Enter
+      setCurrentInput("");
+      setQuery("");
     }
   };
 
@@ -80,6 +83,11 @@ function Header(props) {
           currentInput
         )}`;
         window.open(searchUrl, "_blank");
+
+        // Clear input and suggestions after pressing Enter
+        setCurrentInput("");
+        setQuery("");
+        setSearchResults([]);
       }
     }
   };
@@ -90,7 +98,7 @@ function Header(props) {
       className="bg-no-repeat bg-cover bg-center h-screen w-full relative overflow-hidden flex justify-center items-center inset-0"
     >
       <div className="h-screen inset-0 bg-opacity-20 bg-gray-500 absolute"></div>
-      
+
       <div className="flex justify-center items-center w-full h-full">
         <div className="w-full h-full flex flex-col justify-center items-center">
           <div className="absolute right-5 top-4 flex space-x-4">
@@ -114,7 +122,7 @@ function Header(props) {
                   }`}
                 >
                   <form className=" w-full z-10 form relative">
-                    <button className="absolute left-2 -translate-y-1/2 top-1/2 p-1">
+                    <button className="absolute left-2 -translate-y-1/2 top-1/2 p-1 focus:outline-none">
                       <Image
                         src={`/images/google.png`}
                         alt=""
@@ -164,16 +172,15 @@ function Header(props) {
 
                   {currentInput && (
                     <div className=" pr-4">
-                      <div className="flex items-center space-x-2.5 border-l-4 border-blue-500 text-start h-[45px] bg-gray-100 hover:bg-gray-100 transition-all duration-200 px-[13px] text-gray-700 z-20 rounded-r-full">
+                      <div
+                        onClick={(e) =>
+                          handleCurrentInputClick(e, currentInput)
+                        }
+                        ref={currentInputRef}
+                        className="flex items-center space-x-2.5 border-l-4 border-blue-500 text-start h-[45px] bg-gray-100 hover:bg-gray-100 transition-all duration-200 px-[13px] text-gray-700 z-20 rounded-r-full"
+                      >
                         <IoMdSearch className=" text-lg" />
-                        <p
-                          onClick={(e) =>
-                            handleCurrentInputClick(e, currentInput)
-                          }
-                          ref={currentInputRef}
-                        >
-                          {currentInput}
-                        </p>
+                        <p>{currentInput}</p>
                       </div>
 
                       <div
