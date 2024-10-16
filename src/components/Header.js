@@ -345,7 +345,7 @@ function Header(props) {
       const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(
         val
       )}`;
-      window.open(searchUrl, "_blank");
+      window.open(searchUrl);
       setCurrentInput("");
       setQuery("");
     }
