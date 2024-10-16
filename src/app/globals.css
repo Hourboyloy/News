@@ -70,8 +70,11 @@
 
 
 
+
+
+
  @keyframes backgroundFadeSmooth {
-0% {
+    0% {
       opacity: 0;
       transform: scale(1);
     }
@@ -87,13 +90,4 @@
 
   .animate-backgroundFadeSmooth {
     animation: backgroundFadeSmooth 4s ease-in-out;
-    background-size: cover;
-    background-attachment: scroll; /* Adjust for iOS issues with fixed */
-  }
-
-  /* Fix for iPhone Safari viewport issue */
-  @supports (-webkit-touch-callout: none) {
-    .h-full {
-      height: -webkit-fill-available;
-    }
   }
