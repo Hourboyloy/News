@@ -8,7 +8,7 @@ function Footer() {
     <div>
       {loading.background === false && loading.news === false ? (
         <div className="z-20">
-          <div className="w-full py-10 bg-gray-950">
+          <div className="w-full lg:py-10 md:py-8 py-6 bg-gray-950">
             <p className="text-center text-gray-300 font-semibold uppercase text-xs">
               Copyright@ 2024
             </p>

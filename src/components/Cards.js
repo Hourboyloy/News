@@ -777,10 +777,10 @@ function Cards(props) {
                 >
                   <div className="isHoverStyle cursor-pointer bg-gray-800 h-full overflow-hidden w-full border-gray-900 rounded-lg shadow-gray-600 transition-all duration-500 ease-in-out">
                     <div>
-                      <div className="h-44 relative">
+                      <div className="h-48 relative">
                         {/* Image Display */}
                         {CardsDelays[ele._id] ? (
-                          <div className="h-44 relative flex items-center justify-center transition-all duration-700 ease-in-out">
+                          <div className="h-48 relative flex items-center justify-center transition-all duration-700 ease-in-out">
                             {/* Breaking News Label */}
                             {ele.breakingnews === 1 && (
                               <div className="absolute z-10 top-1.5 right-0 bg-orange-600 text-xs font-semibold text-white px-2 py-1 rounded-md shadow-md transition-transform duration-300 ease-in-out">
@@ -975,7 +975,7 @@ function Cards(props) {
               loading ? " opacity-100 pb-4 pt-2" : "pb-0 pt-0 opacity-0"
             }`}
           >
-            {<div class="loadertwo"></div>}
+            {<div className="loadertwo"></div>}
           </div>
         }
       </div>

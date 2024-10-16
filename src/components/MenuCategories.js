@@ -7,14 +7,14 @@ function MenuCategories() {
   const pathname = usePathname();
 
   const linkClasses = (path) => {
-    return `outline-none focus:outline-none select-none border border-gray-700 px-2.5 py-1 rounded-md text-sm hover:bg-gray-600 transition-all duration-300 ${
+    return `outline-none focus:outline-none select-none border border-gray-700 px-2.5 py-1 rounded-md md:text-sm text-xs hover:bg-gray-600 transition-all duration-300 ${
       pathname === path ? "text-red-500" : ""
     }`;
   };
 
   return (
     <div>
-      <div className="text-white flex items-center justify-center space-x-3 pb-6 pt-10">
+      <div className="text-white flex items-center justify-center md:space-x-3 space-x-2 px-3 pb-6 pt-10">
         <Link className={linkClasses("/")} href="/">
           Home
         </Link>

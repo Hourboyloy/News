@@ -6,7 +6,7 @@
      <div className="">
        <div aria-label="Loading..." role="status" className="loader">
          <svg
-           className="icon w-6 h-6  md:w-10 md:h-10  lg:w-14  lg:h-14 xl:w-16 xl:h-16 2xl:w-20 2xl:h-20"
+           className="icon w-6 h-6  md:w-10 md:h-10  lg:w-14  lg:h-14 xl:w-16 xl:h-16"
            viewBox="0 0 256 256"
          >
            <line
@@ -82,7 +82,7 @@
              strokeWidth="24"
            ></line>
          </svg>
-         <span className="loading-text 2xl:text-5xl xl:text-3xl lg:text-3xl md:text-2xl text-lg">
+         <span className="loading-text xl:text-3xl lg:text-3xl md:text-2xl text-lg">
            Loading...
          </span>
        </div>

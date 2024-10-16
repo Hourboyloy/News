@@ -95,7 +95,7 @@ function Header(props) {
   return (
     <div
       style={{ backgroundImage: `url(${background?.bgurl})` }}
-      className="bg-no-repeat bg-cover bg-center h-screen w-full relative overflow-hidden flex justify-center items-center inset-0"
+      className="bg-cover bg-center h-screen relative overflow-hidden flex justify-center items-center inset-0 animate-backgroundFade"
     >
       <div className="h-screen inset-0 bg-opacity-20 bg-gray-500 absolute"></div>
 
@@ -104,16 +104,16 @@ function Header(props) {
           <div className="absolute right-5 top-4 flex space-x-4">
             {/* Your previous code for icons */}
           </div>
-          <div className="cursor-pointer absolute w-full h-full -top-40 sm:-top-52 lg:-top-44  xl:-top-48 2xl:-top-56 flex justify-center items-center">
+          <div className="cursor-pointer absolute w-full h-full -top-40 md:-top-40 lg:-top-40  xl:-top-48 2xl:-top-40 flex justify-center items-center">
             <div
-              className="w-72 sm:w-6/12 lg:w-4/12 xl:w-3/12 2xl:w-1/5 h-28 2xl:h-24 rounded bg-opacity-70 bg-gray-800"
+              className="w-64 md:w-5/12 lg:w-4/12 xl:w-3/12 2xl:w-1/5 h-16 md:h-20 lg:h-28 2xl:h-24 rounded bg-opacity-70 bg-gray-800"
               data-aos="zoom-in"
             >
               <Weather />
             </div>
           </div>
 
-          <div className="w-full h-full absolute xl:-top-10">
+          <div className="w-full h-full absolute -top-10 md:top-0 xl:-top-10">
             <div className=" w-full h-full flex justify-center translate-y-[45%]">
               <div className="w-full flex flex-col justify-start items-center space-y-1">
                 <div
@@ -131,7 +131,7 @@ function Header(props) {
                         className=" rounded-full w-7"
                       />
                     </button>
-                    <div className="bg-white w-full text-2xl xl:text-lg h-[47.20px] text-gray-500  rounded-full px-11  border-2 border-transparent  placeholder-gray-400 transition-all duration-300">
+                    <div className="bg-white w-full md:text-base text-sm h-[47.20px] text-gray-500  rounded-full px-11  border-2 border-transparent  placeholder-gray-400 transition-all duration-300">
                       <input
                         type="text"
                         value={query}
@@ -179,7 +179,7 @@ function Header(props) {
                         ref={currentInputRef}
                         className="flex items-center space-x-2.5 border-l-4 border-blue-500 text-start h-[45px] bg-gray-100 hover:bg-gray-100 transition-all duration-200 px-[13px] text-gray-700 z-20 rounded-r-full"
                       >
-                        <IoMdSearch className=" text-lg" />
+                        <IoMdSearch className=" md:text-base text-sm" />
                         <p>{currentInput}</p>
                       </div>
 
@@ -188,7 +188,7 @@ function Header(props) {
                         ref={currentInputRef}
                         className="flex items-center space-x-2.5 border-blue-500 text-start h-[45px] hover:bg-gray-100 transition-all duration-200 px-[18px] text-gray-700 z-20 rounded-r-full"
                       >
-                        <IoMdSearch className=" text-lg" />
+                        <IoMdSearch className=" md:text-base text-sm" />
                         <p>news</p>
                       </div>
 
@@ -197,7 +197,7 @@ function Header(props) {
                         ref={currentInputRef}
                         className="flex items-center space-x-2.5 border-blue-500 text-start h-[45px] hover:bg-gray-100 transition-all duration-200 px-[18px] text-gray-700 z-20 rounded-r-full"
                       >
-                        <IoMdSearch className=" text-lg" />
+                        <IoMdSearch className=" md:text-base text-sm" />
                         <p>you tube</p>
                       </div>
 
@@ -206,7 +206,7 @@ function Header(props) {
                         ref={currentInputRef}
                         className="flex items-center space-x-2.5 border-blue-500 text-start h-[45px] hover:bg-gray-100 transition-all duration-200 px-[18px] text-gray-700 z-20 rounded-r-full"
                       >
-                        <IoMdSearch className=" text-lg" />
+                        <IoMdSearch className=" md:text-base text-sm" />
                         <p>face book</p>
                       </div>
 

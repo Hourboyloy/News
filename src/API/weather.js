@@ -18,16 +18,18 @@ function Weather() {
     fetchData();
   }, []);
   return (
-    <div className="w-full h-full rounded-lg flex justify-center items-center">
-      <div className="w-full relative text-white text-sm md:text-lg rounded flex justify-center items-center space-x-4 px-3  h-full shadow shadow-black">
-        <p>{Weather?.name}</p>
-        <p>{WeatherdotMain}</p>
-        <p>
-          {Weather?.main?.temp}
-          <span className=" absolute items-center justify-center top-13 text-sm">
-            °C
-          </span>
-        </p>
+    <div className="w-full h-full rounded-lg">
+      <div className="w-auto h-full relative text-white text-sm md:text-lg flex items-center justify-center rounded shadow shadow-black">
+        <button className="flex items-center space-x-4 pr-4 outline-none focus:outline-none">
+          <p className="">{Weather?.name}</p>
+          <p>{WeatherdotMain}</p>
+          <p>
+            {Weather?.main?.temp}
+            <span className=" absolute items-center justify-center top-13 text-sm">
+              °C
+            </span>
+          </p>
+        </button>
       </div>
     </div>
   );
