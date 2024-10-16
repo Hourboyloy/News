@@ -95,16 +95,13 @@ function Header(props) {
   return (
     <div
       style={{ backgroundImage: `url(${background?.bgurl})` }}
-      className="bg-cover bg-center h-screen relative overflow-hidden flex justify-center items-center inset-0 animate-backgroundFade"
+      className="bg-center bg-no-repeat transition-all duration-1000 bg-cover relative flex justify-center items-center inset-0"
     >
-      <div className="h-screen inset-0 bg-opacity-20 bg-gray-500 absolute"></div>
+      <div className="h-full inset-0 bg-opacity-40 bg-gray-700 absolute"></div>
 
-      <div className="flex justify-center items-center w-full h-full">
-        <div className="w-full h-full flex flex-col justify-center items-center">
-          <div className="absolute right-5 top-4 flex space-x-4">
-            {/* Your previous code for icons */}
-          </div>
-          <div className="cursor-pointer absolute w-full h-full -top-40 md:-top-40 lg:-top-40  xl:-top-48 2xl:-top-40 flex justify-center items-center">
+      <div className="h-screen w-full pt-20 md:pt-36 xl:pt-36 lg:pt-32">
+        <div className="w-full flex flex-col justify-center md:space-y-12 space-y-6">
+          <div className="cursor-pointer w-full flex justify-center items-center">
             <div
               className="w-64 md:w-5/12 lg:w-4/12 xl:w-3/12 2xl:w-1/5 h-16 md:h-20 lg:h-28 2xl:h-24 rounded bg-opacity-70 bg-gray-800"
               data-aos="zoom-in"
@@ -113,11 +110,11 @@ function Header(props) {
             </div>
           </div>
 
-          <div className="w-full h-full absolute -top-10 md:top-0 xl:-top-10">
-            <div className=" w-full h-full flex justify-center translate-y-[45%]">
+          <div className="w-full">
+            <div className=" w-full h-full flex justify-center">
               <div className="w-full flex flex-col justify-start items-center space-y-1">
                 <div
-                  className={`bg-white rounded-3xl sm:w-9/12 w-10/12 lg:w-7/12  xl:w-2/6 shadow-md outline-none overflow-hidden ${
+                  className={`bg-white sticky rounded-3xl sm:w-9/12 w-10/12 lg:w-7/12  xl:w-2/6 shadow-md outline-none overflow-hidden ${
                     currentInput == "" ? "pb-0" : "pb-3"
                   }`}
                 >
@@ -171,7 +168,7 @@ function Header(props) {
                   </form>
 
                   {currentInput && (
-                    <div className=" pr-4">
+                    <div className="pr-4">
                       <div
                         onClick={(e) =>
                           handleCurrentInputClick(e, currentInput)

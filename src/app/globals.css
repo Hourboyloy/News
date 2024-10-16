@@ -72,7 +72,7 @@
 
 
 
-
+/* 
  @keyframes backgroundFadeSmooth {
     0% {
       opacity: 0;
@@ -90,4 +90,4 @@
 
   .animate-backgroundFadeSmooth {
     animation: backgroundFadeSmooth 4s ease-in-out;
-  }
+  } */
