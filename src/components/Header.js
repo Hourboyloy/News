@@ -376,7 +376,7 @@ function Header(props) {
       >
         <div className="h-full inset-0 bg-opacity-40 bg-gray-700 absolute"></div>
 
-        <div className="h-screen w-full pt-20 md:pt-36 xl:pt-36 lg:pt-32">
+        <div className="h-screen flex items-center md:items-start w-full xl:pt-36 lg:pt-56 md:pt-60">
           <div className="w-full flex flex-col justify-center md:space-y-12 space-y-6">
             <div className="cursor-pointer w-full flex justify-center items-center">
               <div
