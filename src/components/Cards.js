@@ -718,7 +718,7 @@ function Cards(props) {
             }, 2500); // 2.5 seconds delay for the image
           }
         });
-      }, delaytime); // 1 second loading delay
+      }, 500); // 1 second loading delay
     } else {
       setHasMoreNews(false);
     }
