@@ -54,8 +54,6 @@
 
 // src/app/page.js
 
-
-
 "use client";
 import Cards from "@/components/Cards";
 import { useNewsWeb } from "@/context/NewsContext"; // Import the custom hook
@@ -67,7 +65,9 @@ export default function Page() {
     <main>
       {loading.news === false && loading.background === false ? (
         news.length > 0 ? (
-          <Cards news={news} /> // Pass reversed news directly to Cards component
+          <div className="min-h-screen">
+            <Cards news={news} /> // Pass reversed news directly to Cards
+          </div>
         ) : (
           <div className="text-white text-center pt-4">No news available.</div>
         )

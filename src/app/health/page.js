@@ -6,7 +6,9 @@ import Cards from "@/components/Cards";
 function Page() {
   const { news, loading } = useNewsWeb();
   const [lists, setLists] = useState([]);
-  const filteredNews = news.filter((newsItem) => newsItem.category === "សុខភាព");
+  const filteredNews = news.filter(
+    (newsItem) => newsItem.category === "សុខភាព"
+  );
 
   // Set filtered news to lists
   useEffect(() => {
@@ -17,7 +19,10 @@ function Page() {
     <div>
       {loading.news === false && loading.background === false ? (
         lists.length > 0 ? (
-          <Cards news={lists} /> // Pass reversed news directly to Cards component
+          <div className="min-h-screen">
+            <Cards news={lists} /> // Pass reversed news directly to Cards
+            component
+          </div>
         ) : (
           <div className="text-white text-center pt-4">No news available.</div>
         )
