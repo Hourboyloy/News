@@ -687,6 +687,7 @@ function Cards(props) {
   const [loading, setLoading] = useState(false);
   const [hasMoreNews, setHasMoreNews] = useState(true);
   const [CardsDelays, setCardDelays] = useState({});
+  const delaytime = newsRender.length<=0?0:1000;
 
   // Initialize AOS for animations
   useEffect(() => {
@@ -717,7 +718,7 @@ function Cards(props) {
             }, 2500); // 2.5 seconds delay for the image
           }
         });
-      }, 1000); // 1 second loading delay
+      },delaytime); // 1 second loading delay
     } else {
       setHasMoreNews(false);
     }
