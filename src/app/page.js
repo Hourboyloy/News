@@ -65,7 +65,7 @@ export default function Page() {
     <div>
       {loading.news === false && loading.background === false ? (
         <div className="min-h-screen">
-          {lists.length > 0 ? (
+          {news.length > 0 ? (
             <div>
               <Cards news={news} />
             </div>
