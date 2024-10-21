@@ -691,7 +691,7 @@ function Cards(props) {
 
   // Initialize AOS for animations
   useEffect(() => {
-    Aos.init({ duration:500, once: true });
+    Aos.init({ duration:0, once: true });
   }, [newsRender]);
 
   // Function to load news items based on the current offset

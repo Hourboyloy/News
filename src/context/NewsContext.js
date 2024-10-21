@@ -15,8 +15,6 @@ export const NewsProvider = ({ children }) => {
 
   // Fetch news data
   useEffect(() => {
-    // http://localhost:5051
-    // https://manage-news-server134.vercel.app
     const fetchNews = async () => {
       try {
         setLoading(true); // Set loading to true while fetching
