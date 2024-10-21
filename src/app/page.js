@@ -62,18 +62,22 @@ export default function Page() {
   const { news, loading } = useNewsWeb(); // Get news, loading, and error from context
 
   return (
-    <main className="">
+    <div>
       {loading.news === false && loading.background === false ? (
-        news.length > 0 ? (
-          <div className="min-h-screen">
-            <Cards news={news} />
-          </div>
-        ) : (
-          <div className="text-white text-center pt-4">No news available.</div>
-        )
+        <div className="min-h-screen">
+          {lists.length > 0 ? (
+            <div>
+              <Cards news={news} />
+            </div>
+          ) : (
+            <div className="text-white text-center pt-4">
+              No news available.
+            </div>
+          )}
+        </div>
       ) : (
         ""
       )}
-    </main>
+    </div>
   );
 }
