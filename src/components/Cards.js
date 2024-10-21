@@ -687,11 +687,11 @@ function Cards(props) {
   const [loading, setLoading] = useState(false);
   const [hasMoreNews, setHasMoreNews] = useState(true);
   const [CardsDelays, setCardDelays] = useState({});
-  const delaytime = newsRender.length <= 10 ? 0 : 500;
+  const delaytime = newsRender.length <= 0 ? 0 : 500;
 
   // Initialize AOS for animations
   useEffect(() => {
-    Aos.init({ duration:0, once: true });
+    Aos.init({ duration: newsRender.length <= 0 ? 0 : 500, once: true });
   }, [newsRender]);
 
   // Function to load news items based on the current offset
@@ -718,7 +718,7 @@ function Cards(props) {
             }, 2500); // 2.5 seconds delay for the image
           }
         });
-      }, 500); // 1 second loading delay
+      }, delaytime); // 1 second loading delay
     } else {
       setHasMoreNews(false);
     }
@@ -759,7 +759,7 @@ function Cards(props) {
   }, [offset]);
 
   return (
-    <div className="bg-gray-900 space-y-2 mx-auto max-w-[1520px] p-2 min-h-screen">
+    <div className="bg-gray-900 space-y-2 mx-auto max-w-[1520px] p-2 min-h-[20vh]">
       <div className="">
         <ul className="grid gap-3 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 pb-5">
           {newsRender.length > 0 &&
