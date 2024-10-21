@@ -759,7 +759,7 @@ function Cards(props) {
   }, [offset]);
 
   return (
-    <div className="bg-gray-900 space-y-2 mx-auto max-w-[1520px] p-2 2xl:min-h-[20vh] min-h-screen">
+    <div className="bg-gray-900 space-y-2 mx-auto max-w-[1520px] p-2 2xl:min-h-[50vh] min-h-screen">
       <div className="">
         <ul className="grid gap-3 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 pb-5">
           {newsRender.length > 0 &&
