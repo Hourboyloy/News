@@ -687,7 +687,7 @@ function Cards(props) {
   const [loading, setLoading] = useState(false);
   const [hasMoreNews, setHasMoreNews] = useState(true);
   const [CardsDelays, setCardDelays] = useState({});
-  const delaytime = newsRender.length <= 0 ? 0 : 0;
+  const delaytime = newsRender.length <= 0 ? 0 : 100;
 
   // Initialize AOS for animations
   useEffect(() => {
