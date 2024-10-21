@@ -698,7 +698,7 @@ function Cards(props) {
   const loadNews = () => {
     if (!hasMoreNews || loading) return;
 
-    const newItems = news.slice(offset, offset + 5);
+    const newItems = news.slice(offset, offset + 10);
     if (newItems.length > 0) {
       setLoading(true);
 
@@ -731,7 +731,7 @@ function Cards(props) {
       window.innerHeight + document.documentElement.scrollTop;
 
     if (currentHeight + 1 >= scrollHeight && hasMoreNews) {
-      setOffset((prevOffset) => prevOffset + 5);
+      setOffset((prevOffset) => prevOffset + 10);
     }
   };
 
