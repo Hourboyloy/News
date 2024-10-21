@@ -70,7 +70,7 @@ function Page() {
       {loading.news === false && loading.background === false ? (
         lists.length > 0 ? (
           <div className="min-h-screen">
-            <Cards news={lists} /> // Pass reversed news directly to Cards
+            <Cards news={lists} />
           </div>
         ) : (
           <div className="text-white text-center pt-4">No news available.</div>

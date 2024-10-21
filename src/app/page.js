@@ -66,7 +66,7 @@ export default function Page() {
       {loading.news === false && loading.background === false ? (
         news.length > 0 ? (
           <div className="min-h-screen">
-            <Cards news={news} /> // Pass reversed news directly to Cards
+            <Cards news={news} />
           </div>
         ) : (
           <div className="text-white text-center pt-4">No news available.</div>
