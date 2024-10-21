@@ -15,10 +15,12 @@ export const NewsProvider = ({ children }) => {
 
   // Fetch news data
   useEffect(() => {
+    // http://localhost:5051
+    // https://manage-news-server134.vercel.app
     const fetchNews = async () => {
       try {
         setLoading(true); // Set loading to true while fetching
-        const response = await axios.get("http://localhost:5051/user-get-all");
+        const response = await axios.get("https://manage-news-server134.vercel.app/user-get-all");
         if (response.status === 200) {
           setNews(response.data.news.reverse()); // Reverse directly while setting news
           setLoading((prev) => ({ ...prev, news: false }));
@@ -37,7 +39,7 @@ export const NewsProvider = ({ children }) => {
       try {
         setLoading(true); // Set loading to true while fetching
         const response = await axios.get(
-          "http://localhost:5051/background-seted"
+          "https://manage-news-server134.vercel.app/background-seted"
         );
         if (response.status === 200) {
           if (response.data.message !== "No document with seted=true found") {
