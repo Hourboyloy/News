@@ -66,10 +66,10 @@ function Page() {
   }, [news]);
 
   return (
-    <div className="min-h-screen">
+    <div>
       {loading.news === false && loading.background === false ? (
         lists.length > 0 ? (
-          <div>
+          <div className="min-h-screen">
             <Cards news={lists} />
           </div>
         ) : (
