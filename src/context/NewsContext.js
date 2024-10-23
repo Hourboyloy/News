@@ -84,7 +84,7 @@ export const NewsProvider = ({ children }) => {
        // Combine the existing news and unique new items with delayCard: false
        const updatedNews = [
          ...news,
-         ...uniqueFetchedNews.map((item) => ({ ...item, delayCard: false })), // Add delayCard: false
+         ...uniqueFetchedNews.map((item) => ({ ...item, delayCard: true })), // Add delayCard: false
        ];
 
        // Update the state with unique news only
@@ -93,13 +93,13 @@ export const NewsProvider = ({ children }) => {
        }
 
        // Set delayCard to true after 2 seconds for all items
-       const timer = setTimeout(() => {
-         setNews((prevNews) =>
-           prevNews.map((item) => ({ ...item, delayCard: true }))
-         );
-       }, 2000);
+    //    const timer = setTimeout(() => {
+    //      setNews((prevNews) =>
+    //        prevNews.map((item) => ({ ...item, delayCard: true }))
+    //      );
+    //    }, 2000);
 
-       return () => clearTimeout(timer);
+    //    return () => clearTimeout(timer);
      }
 
      // Optionally, update the offset for the next fetch
