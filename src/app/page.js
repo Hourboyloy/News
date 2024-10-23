@@ -59,15 +59,19 @@ import Cards from "@/components/Cards";
 import { useNewsWeb } from "@/context/NewsContext"; // Import the custom hook
 
 export default function Page() {
-  const { news, loading } = useNewsWeb(); // Get news, loading, and error from context
+  const { news, loading, fetchNews, loadMoreNews } = useNewsWeb(); // Get news, loading, and error from context
 
   return (
     <div>
-      {loading.news === false && loading.background === false ? (
-        <div className="min-h-screen">
+      {loading.background === false ? (
+        <div className="min-h-[100vh]">
           {news.length > 0 ? (
             <div>
-              <Cards news={news} />
+              <Cards
+                fetchNews={fetchNews}
+                loadMoreNews={loadMoreNews}
+                news={news}
+              />
             </div>
           ) : (
             <div className="text-white text-center pt-4">

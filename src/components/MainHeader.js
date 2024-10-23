@@ -16,7 +16,7 @@ function MainHeader() {
     <div>
       <div className="relative space-y-0 bg-gray-900">
         <div>
-          {loading.background === false && loading.news === false ? (
+          {loading.background === false ? (
             <div className="">
               <div>
                 <Header
