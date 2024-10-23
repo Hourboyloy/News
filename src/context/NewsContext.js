@@ -48,17 +48,17 @@ export const NewsProvider = ({ children }) => {
         }
 
         // Update the offset for the next fetch
-        
+
         // Set delayCard to true after 2 seconds for all items
         const timer = setTimeout(() => {
           setNews((prevNews) =>
             prevNews.map((item) => ({ ...item, delayCard: true }))
-        );
-      }, 2000);
-      
-      return () => clearTimeout(timer);
-    }
-    // setOffset(() => news.length + 5); // Increment offset by 10 for the next batch
+          );
+        }, 2000);
+
+        return () => clearTimeout(timer);
+      }
+      // setOffset(() => news.length + 5); // Increment offset by 10 for the next batch
     } catch (err) {
       setError(err.message); // Handle error
     } finally {
@@ -100,7 +100,7 @@ export const NewsProvider = ({ children }) => {
             setNewsTechnology((prevNews) =>
               prevNews.map((item) => ({ ...item, delayCard: true }))
             );
-          }, 1000);
+          }, 2000);
 
           return () => clearTimeout(timer);
         }
@@ -370,16 +370,23 @@ export const NewsProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    handleStoreAllTechnologyNews();
-    handleStoreAllSportsNews();
-    handleStoreAllHealthNews();
-  }, [newsTechnology, newsHealth, newsSports]);
-
-  useEffect(() => {
-    handleStoreTechnologyNews(news);
-    handleStoreHealthNews(news);
-    handleStoreSportsNews(news);
-  }, [news]);
+    if (newsTechnology) {
+      handleStoreAllTechnologyNews();
+    } else if (newsHealth) {
+      handleStoreAllHealthNews();
+    } else if (newsSports) {
+      handleStoreAllSportsNews();
+    } else if (
+      news &&
+      newsTechnology === false &&
+      newsHealth === false &&
+      newsSports === false
+    ) {
+      handleStoreTechnologyNews(news);
+      handleStoreHealthNews(news);
+      handleStoreSportsNews(news);
+    }
+  }, [newsTechnology, newsHealth, newsSports, news]);
 
   useEffect(() => {
     fetchBackground(); // Initial background fetch
