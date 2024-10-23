@@ -57,7 +57,6 @@ function Page() {
   const {
     newsTechnology,
     loading,
-    fetchNewsTechnology,
     loadMoreNewsTechnology,
   } = useNewsWeb();
 
@@ -68,7 +67,6 @@ function Page() {
           <div>
             <Cards
               news={newsTechnology}
-              fetchNews={fetchNewsTechnology}
               loadMoreNews={loadMoreNewsTechnology}
             />
           </div>

@@ -4,7 +4,7 @@ import { useNewsWeb } from "@/context/NewsContext";
 import Cards from "@/components/Cards";
 
 function Page() {
-  const { newsSports, loading, fetchNewsSports, loadMoreNewsSports } =
+  const { newsSports, loading, loadMoreNewsSports } =
     useNewsWeb();
 
   return (
@@ -14,7 +14,6 @@ function Page() {
           <div>
             <Cards
               news={newsSports}
-              fetchNews={fetchNewsSports}
               loadMoreNews={loadMoreNewsSports}
             />
           </div>

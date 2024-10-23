@@ -4,7 +4,7 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 
 function Cards(props) {
-   const { news, fetchNews, loadMoreNews } = props;
+   const { news, loadMoreNews } = props;
   const [offset, setOffset] = useState(0);
 
   // Initialize AOS for animations
@@ -65,7 +65,6 @@ const debounce = (func, delay) => {
   // Load more news whenever the offset changes
   useEffect(() => {
     loadMoreNews();
-    fetchNews();
   }, [offset]);
 
   return (

@@ -19,14 +19,11 @@ export const NewsProvider = ({ children }) => {
   const [offsetSports, setOffsetSports] = useState(0);
   const [offsetHealth, setOffsetHealth] = useState(0);
 
-  const fetchNews = async (limit) => {
-    console.log("Current offset:", offset);
+  const fetchNews = async () => {
     try {
       setLoading((prev) => ({ ...prev, news: true })); // Set loading for news
       const response = await axios.get(
-        `${https}/user-get-all/?offset=${offset}&limit=${
-          limit == null ? 10 : 10
-        }`
+        `${https}/user-get-all/?offset=${offset}&limit=10`
       );
 
       if (response.status === 200) {
@@ -76,6 +73,7 @@ export const NewsProvider = ({ children }) => {
         `${https}/user-get-all-by-technology/?offset=${offsetTechnology}&limit=10`
       );
 
+      console.log(offsetTechnology);
       if (response.status === 200) {
         const newFetchedNews = response.data.news;
 
@@ -368,7 +366,7 @@ export const NewsProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchNews(11);
+    fetchNews();
   }, []);
 
   useEffect(() => {
