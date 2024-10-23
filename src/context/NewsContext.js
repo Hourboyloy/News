@@ -54,6 +54,8 @@ export const NewsProvider = ({ children }) => {
           setNews((prevNews) =>
             prevNews.map((item) => ({ ...item, delayCard: true }))
           );
+          var i = 1;
+          console.log(i++);
         }, 2000);
 
         return () => clearTimeout(timer);
@@ -61,14 +63,11 @@ export const NewsProvider = ({ children }) => {
       // setOffset(() => news.length + 5); // Increment offset by 10 for the next batch
     } catch (err) {
       setError(err.message); // Handle error
-    } finally {
-      setLoading((prev) => ({ ...prev, news: false })); // Stop loading
     }
   };
 
   const fetchNewsTechnology = async () => {
     try {
-      setLoading((prev) => ({ ...prev, news: true })); // Set loading for news
       const response = await axios.get(
         `${https}/user-get-all-by-technology/?offset=${offsetTechnology}&limit=10`
       );
@@ -107,14 +106,11 @@ export const NewsProvider = ({ children }) => {
       }
     } catch (err) {
       setError(err.message); // Handle error
-    } finally {
-      setLoading((prev) => ({ ...prev, news: false })); // Stop loading
     }
   };
 
   const fetchNewsSports = async () => {
     try {
-      setLoading((prev) => ({ ...prev, news: true })); // Set loading for news
       const response = await axios.get(
         `${https}/user-get-all-by-sports/?offset=${offsetSports}&limit=10`
       );
@@ -152,14 +148,11 @@ export const NewsProvider = ({ children }) => {
       }
     } catch (err) {
       setError(err.message); // Handle error
-    } finally {
-      setLoading((prev) => ({ ...prev, news: false })); // Stop loading
     }
   };
 
   const fetchNewsHealth = async () => {
     try {
-      setLoading((prev) => ({ ...prev, news: true })); // Set loading for news
       const response = await axios.get(
         `${https}/user-get-all-by-health/?offset=${offsetHealth}&limit=10`
       );
@@ -197,8 +190,6 @@ export const NewsProvider = ({ children }) => {
       }
     } catch (err) {
       setError(err.message); // Handle error
-    } finally {
-      setLoading((prev) => ({ ...prev, news: false })); // Stop loading
     }
   };
 
