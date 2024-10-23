@@ -395,18 +395,13 @@ export const NewsProvider = ({ children }) => {
   return (
     <NewsContext.Provider
       value={{
-        news,
         background,
         loading,
-        error,
-        fetchNews,
-        loadMoreNews,
-        fetchNewsTechnology,
-        fetchNewsSports,
-        fetchNewsHealth,
+        news,
         newsTechnology,
         newsHealth,
         newsSports,
+        loadMoreNews,
         loadMoreNewsTechnology,
         loadMoreNewsSports,
         loadMoreNewsHealth,
