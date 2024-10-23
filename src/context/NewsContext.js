@@ -100,7 +100,7 @@ export const NewsProvider = ({ children }) => {
             setNewsTechnology((prevNews) =>
               prevNews.map((item) => ({ ...item, delayCard: true }))
             );
-          }, 2000);
+          }, 1000);
 
           return () => clearTimeout(timer);
         }
