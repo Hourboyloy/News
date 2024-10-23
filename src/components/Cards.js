@@ -13,15 +13,36 @@ function Cards(props) {
   }, []);
 
   // Function to handle the scroll event
-  const handleScroll = () => {
-    const scrollHeight = document.documentElement.scrollHeight;
-    const currentHeight =
-      window.innerHeight + document.documentElement.scrollTop;
+  // const handleScroll = () => {
+  //   const scrollHeight = document.documentElement.scrollHeight;
+  //   const currentHeight =
+  //     window.innerHeight + document.documentElement.scrollTop;
 
-    if (currentHeight + 1 >= scrollHeight) {
-      setOffset((prevOffset) => prevOffset + 5);
-    }
+  //   if (currentHeight + 1 >= scrollHeight) {
+  //     setOffset((prevOffset) => prevOffset + 5);
+  //   }
+  // };
+
+const debounce = (func, delay) => {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), delay);
   };
+};
+  const handleScroll = debounce(() => {
+    const scrollTop = document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const scrollHeight = document.documentElement.scrollHeight;
+
+    // Trigger load more when near the bottom (e.g., 100px from the bottom)
+    const threshold = 300;
+
+    if (scrollTop + windowHeight + threshold >= scrollHeight) {
+      setOffset((prevOffset) => prevOffset + 5); // Increase offset to load more content
+    }
+  }, 80);
+
 
   // Add scroll event listener with debounce
   useEffect(() => {
@@ -29,7 +50,7 @@ function Cards(props) {
       let timeout;
       return () => {
         if (timeout) clearTimeout(timeout);
-        timeout = setTimeout(handleScroll, 200); // 200ms debounce
+        timeout = setTimeout(handleScroll, 50); // 50ms debounce
       };
     };
 
@@ -48,7 +69,7 @@ function Cards(props) {
   }, [offset]);
 
   return (
-    <div className="bg-gray-900 space-y-2 mx-auto max-w-[1520px] p-2">
+    <div className="bg-gray-900 space-y-2 mx-auto max-w-[1520px] p-2 pb-20">
       <div className="">
         <ul className="grid gap-3 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 pb-5">
           {news.length > 0 &&

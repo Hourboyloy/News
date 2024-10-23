@@ -19,11 +19,14 @@ export const NewsProvider = ({ children }) => {
   const [offsetSports, setOffsetSports] = useState(0);
   const [offsetHealth, setOffsetHealth] = useState(0);
 
-  const fetchNews = async () => {
+  const fetchNews = async (limit) => {
+    console.log("Current offset:", offset);
     try {
       setLoading((prev) => ({ ...prev, news: true })); // Set loading for news
       const response = await axios.get(
-        `${https}/user-get-all/?offset=${offset}&limit=10`
+        `${https}/user-get-all/?offset=${offset}&limit=${
+          limit == null ? 10 : 10
+        }`
       );
 
       if (response.status === 200) {
@@ -35,10 +38,9 @@ export const NewsProvider = ({ children }) => {
         // Filter out duplicates by title
         const uniqueNews = combinedNews.filter(
           (item, index, self) =>
-            index === self.findIndex((t) => t.title === item.title)
+            index === self.findIndex((t) => t._id === item._id) // Ensure you have unique IDs
         );
-
-        // Check if there are unique news items to add
+        // Update state with unique news
         if (uniqueNews.length > 0) {
           // Add delayCard field to each unique news item
           const uniqueNewsWithDelayCard = uniqueNews.map((item) => ({
@@ -46,16 +48,19 @@ export const NewsProvider = ({ children }) => {
           }));
 
           setNews(uniqueNewsWithDelayCard); // Update state with unique news
-
-          // Set delayCard to true after 2 seconds for all items
-          const timer = setTimeout(() => {
-            setNews((prevNews) =>
-              prevNews.map((item) => ({ ...item, delayCard: true }))
-            );
-          }, 2000);
-
-          return () => clearTimeout(timer);
         }
+
+        // Update the offset for the next fetch
+        setOffset(() => news.length + 5); // Increment offset by 10 for the next batch
+
+        // Set delayCard to true after 2 seconds for all items
+        const timer = setTimeout(() => {
+          setNews((prevNews) =>
+            prevNews.map((item) => ({ ...item, delayCard: true }))
+          );
+        }, 2000);
+
+        return () => clearTimeout(timer);
       }
     } catch (err) {
       setError(err.message); // Handle error
@@ -199,7 +204,7 @@ export const NewsProvider = ({ children }) => {
     }
   };
 
-  // Handle storing technology news into general news
+  // store to the news state
   const handleStoreAllTechnologyNews = () => {
     const uniqueNews = newsTechnology.filter(
       (techItem) =>
@@ -251,6 +256,7 @@ export const NewsProvider = ({ children }) => {
     }
   };
 
+  // store to the category state
   const handleStoreTechnologyNews = (fetchedNews) => {
     const techNews = fetchedNews.filter(
       (item) => item.category === "បច្ចេកវិទ្យា"
@@ -267,7 +273,7 @@ export const NewsProvider = ({ children }) => {
       // Map unique news items to include delayCard property
       const uniqueTechNewsWithDelayCard = uniqueTechNews.map((item) => ({
         ...item, // Spread existing item properties
-        delayCard: false, // Initialize delayCard to false (or true if desired)
+        delayCard: true, // Initialize delayCard to false (or true if desired)
       }));
 
       setNewsTechnology((prevNewsTechnology) => [
@@ -288,10 +294,10 @@ export const NewsProvider = ({ children }) => {
     if (uniqueHealthNews.length > 0) {
       const uniqueHealthNewsWithDelayCard = uniqueHealthNews.map((item) => ({
         ...item,
-        delayCard: false,
+        delayCard: true,
       }));
 
-      setNewsTechnology((prevNewsHealth) => [
+      setNewsHealth((prevNewsHealth) => [
         ...prevNewsHealth,
         ...uniqueHealthNewsWithDelayCard,
       ]);
@@ -309,10 +315,10 @@ export const NewsProvider = ({ children }) => {
     if (uniqueSportsNews.length > 0) {
       const uniqueSportsNewsWithDelayCard = uniqueSportsNews.map((item) => ({
         ...item,
-        delayCard: false,
+        delayCard: true,
       }));
 
-      setNewsTechnology((prevNewsSport) => [
+      setNewsSports((prevNewsSport) => [
         ...prevNewsSport,
         ...uniqueSportsNewsWithDelayCard,
       ]);
@@ -322,6 +328,7 @@ export const NewsProvider = ({ children }) => {
   // Function to load more general news
   const loadMoreNews = () => {
     setOffset(() => news.length + 10);
+    fetchNews();
   };
 
   // Function to load more technology news
@@ -329,10 +336,12 @@ export const NewsProvider = ({ children }) => {
     setOffsetTechnology(() => newsTechnology.length + 10);
     fetchNewsTechnology();
   };
+
   const loadMoreNewsSports = () => {
     setOffsetSports(() => newsSports.length + 10);
     fetchNewsSports();
   };
+
   const loadMoreNewsHealth = () => {
     setOffsetHealth(() => newsHealth.length + 10);
     fetchNewsHealth();
@@ -359,9 +368,8 @@ export const NewsProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchNews();
-    console.log(offset);
-  }, [offset]);
+    fetchNews(11);
+  }, []);
 
   useEffect(() => {
     handleStoreAllTechnologyNews();
