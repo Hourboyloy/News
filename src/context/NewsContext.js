@@ -48,17 +48,17 @@ export const NewsProvider = ({ children }) => {
         }
 
         // Update the offset for the next fetch
-        setOffset(() => news.length + 5); // Increment offset by 10 for the next batch
-
+        
         // Set delayCard to true after 2 seconds for all items
         const timer = setTimeout(() => {
           setNews((prevNews) =>
             prevNews.map((item) => ({ ...item, delayCard: true }))
-          );
-        }, 2000);
-
-        return () => clearTimeout(timer);
-      }
+        );
+      }, 2000);
+      
+      return () => clearTimeout(timer);
+    }
+    // setOffset(() => news.length + 5); // Increment offset by 10 for the next batch
     } catch (err) {
       setError(err.message); // Handle error
     } finally {
