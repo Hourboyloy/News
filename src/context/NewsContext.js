@@ -166,36 +166,44 @@ export const NewsProvider = ({ children }) => {
   };
 
 
- const fetchNewsHealth = async () => {
-   try {
-     const response = await axios.get(
-       `${https}/user-get-all-by-health/?offset=${offsetHealth}&limit=10`
-     );
+const fetchedHealthNewsIds = new Set(); // Global Set to track unique IDs
 
-     if (response.status === 200) {
-       const newFetchedNews = response.data.news;
+const fetchNewsHealth = async () => {
+  try {
+    const response = await axios.get(
+      `${https}/user-get-all-by-health/?offset=${offsetHealth}&limit=10`
+    );
 
-       // Create Sets to track existing titles and IDs
-       const existingTitles = new Set(newsHealth.map((item) => item.title));
-       const existingIds = new Set(newsHealth.map((item) => item._id));
+    if (response.status === 200) {
+      const newFetchedNews = response.data.news;
 
-       // Filter out new items by title and ID
-       const uniqueFetchedNews = newFetchedNews.filter(
-         (newItem) =>
-           !existingTitles.has(newItem.title) && !existingIds.has(newItem._id)
-       );
+      // Create a Set to track existing titles for the current state
+      const existingTitles = new Set(newsHealth.map((item) => item.title));
 
-       if (uniqueFetchedNews.length > 0) {
-         // Only update state with new, unique news items
-         setNewsHealth((prevNews) => [...prevNews, ...uniqueFetchedNews]);
-       } else {
-         setLoadingCardsPageHealth(false); // Stop loading if no new items
-       }
-     }
-   } catch (err) {
-     setError(err.message); // Handle error
-   }
- };
+      // Filter out duplicates using both the globally tracked Set for IDs and the local Set for titles
+      const uniqueFetchedNews = newFetchedNews.filter((newItem) => {
+        const isIdUnique = !fetchedHealthNewsIds.has(newItem._id);
+        const isTitleUnique = !existingTitles.has(newItem.title);
+
+        if (isIdUnique) {
+          fetchedHealthNewsIds.add(newItem._id); // Track the ID to prevent future duplicates
+        }
+
+        return isIdUnique && isTitleUnique; // Keep this item if both conditions are true
+      });
+
+      // Only update state if there are new unique items
+      if (uniqueFetchedNews.length > 0) {
+        setNewsHealth((prevNews) => [...prevNews, ...uniqueFetchedNews]);
+      } else {
+        setLoadingCardsPageHealth(false); // Stop loading if no new items
+      }
+    }
+  } catch (err) {
+    setError(err.message); // Handle error
+  }
+};
+
 
   // store to the news state
   const handleStoreAllTechnologyNews = () => {
