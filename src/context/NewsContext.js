@@ -37,12 +37,21 @@ export const NewsProvider = ({ children }) => {
       if (response.status === 200) {
         const newFetchedNews = response.data.news;
 
-        // Filter out duplicates using the globally tracked Set
+        // Create a Set to track titles that have already been added
+        const existingTitles = new Set();
+
+        // Filter out duplicates using the globally tracked Set for IDs and the new Set for titles
         const uniqueFetchedNews = newFetchedNews.filter((newItem) => {
-          if (!fetchedNewsIds.has(newItem._id)) {
+          const isIdUnique = !fetchedNewsIds.has(newItem._id);
+          const isTitleUnique = !existingTitles.has(newItem.title);
+
+          if (isIdUnique && isTitleUnique) {
+            // If both ID and title are unique, track them
             fetchedNewsIds.add(newItem._id); // Track the ID to prevent future duplicates
+            existingTitles.add(newItem.title); // Track the title to prevent future duplicates
             return true; // Keep this item
           }
+
           return false; // Discard this item
         });
 
@@ -50,7 +59,7 @@ export const NewsProvider = ({ children }) => {
         if (uniqueFetchedNews.length > 0) {
           setNews((prevNews) => [...prevNews, ...uniqueFetchedNews]);
         } else {
-          setLoadingCardsPageHome(false);
+          setLoadingCardsPageHome(false); // Stop loading if no new items
         }
       }
 
@@ -59,6 +68,7 @@ export const NewsProvider = ({ children }) => {
       setError(err.message); // Handle any errors that occur
     }
   };
+
 
   const fetchNewsTechnology = async () => {
     try {
@@ -92,7 +102,6 @@ export const NewsProvider = ({ children }) => {
       setError(err.message); // Handle error
     }
   };
-
 
   // const fetchNewsTechnology = async () => {
   //   try {
@@ -134,19 +143,21 @@ export const NewsProvider = ({ children }) => {
       if (response.status === 200) {
         const newFetchedNews = response.data.news;
 
-        // Create a Set to track titles that already exist in the state
-        const newsTitles = new Set(newsSports.map((item) => item.title));
+        // Create Sets to track existing titles and IDs
+        const existingTitles = new Set(newsSports.map((item) => item.title));
+        const existingIds = new Set(newsSports.map((item) => item._id));
 
-        // Filter out new items whose titles already exist in the state
+        // Filter out new items by title and ID
         const uniqueFetchedNews = newFetchedNews.filter(
-          (newItem) => !newsTitles.has(newItem.title)
+          (newItem) =>
+            !existingTitles.has(newItem.title) && !existingIds.has(newItem._id)
         );
 
         if (uniqueFetchedNews.length > 0) {
           // Update state only if there are unique news items
           setNewsSports((prevNews) => [...prevNews, ...uniqueFetchedNews]);
         } else {
-          setLoadingCardsPageSports(false);
+          setLoadingCardsPageSports(false); // Stop loading if no new items
         }
       }
     } catch (err) {
@@ -154,34 +165,37 @@ export const NewsProvider = ({ children }) => {
     }
   };
 
-  const fetchNewsHealth = async () => {
-    try {
-      const response = await axios.get(
-        `${https}/user-get-all-by-health/?offset=${offsetHealth}&limit=10`
-      );
 
-      if (response.status === 200) {
-        const newFetchedNews = response.data.news;
+ const fetchNewsHealth = async () => {
+   try {
+     const response = await axios.get(
+       `${https}/user-get-all-by-health/?offset=${offsetHealth}&limit=10`
+     );
 
-        // Create a Set to track titles that already exist
-        const newsTitles = new Set(newsHealth.map((item) => item.title));
+     if (response.status === 200) {
+       const newFetchedNews = response.data.news;
 
-        // Filter out new items whose titles are already in the state
-        const uniqueFetchedNews = newFetchedNews.filter(
-          (newItem) => !newsTitles.has(newItem.title)
-        );
+       // Create Sets to track existing titles and IDs
+       const existingTitles = new Set(newsHealth.map((item) => item.title));
+       const existingIds = new Set(newsHealth.map((item) => item._id));
 
-        if (uniqueFetchedNews.length > 0) {
-          // Only update state with new, unique news items
-          setNewsHealth((prevNews) => [...prevNews, ...uniqueFetchedNews]);
-        } else {
-          setLoadingCardsPageHealth(false);
-        }
-      }
-    } catch (err) {
-      setError(err.message); // Handle error
-    }
-  };
+       // Filter out new items by title and ID
+       const uniqueFetchedNews = newFetchedNews.filter(
+         (newItem) =>
+           !existingTitles.has(newItem.title) && !existingIds.has(newItem._id)
+       );
+
+       if (uniqueFetchedNews.length > 0) {
+         // Only update state with new, unique news items
+         setNewsHealth((prevNews) => [...prevNews, ...uniqueFetchedNews]);
+       } else {
+         setLoadingCardsPageHealth(false); // Stop loading if no new items
+       }
+     }
+   } catch (err) {
+     setError(err.message); // Handle error
+   }
+ };
 
   // store to the news state
   const handleStoreAllTechnologyNews = () => {
