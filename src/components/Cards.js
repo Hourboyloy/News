@@ -19,20 +19,55 @@ function Cards(props) {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (
-        window.innerHeight + window.scrollY >=
-        document.body.offsetHeight - 300
-      ) {
-        setOffset((prev) => prev + 10); // Adjust this as needed
+      // Calculate total document height
+      const documentHeight = document.body.offsetHeight;
+      const currentScrollPosition = window.innerHeight + window.scrollY;
+
+      // Define the threshold based on the device type
+      let threshold;
+      if (window.innerWidth <= 768) {
+        // Mobile/Tablet breakpoint
+        threshold = documentHeight * 0.5; // 50% from the bottom
+      } else {
+        threshold = 300; // 300 pixels from the bottom for PC
+      }
+
+      // Check if the current scroll position is past the threshold
+      if (currentScrollPosition >= documentHeight - threshold) {
+        setOffset((prev) => prev + 10); // Load more items
       }
     };
 
+    // Add event listener for scrolling
     window.addEventListener("scroll", handleScroll);
 
     return () => {
+      // Cleanup the event listener on unmount
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  // useEffect(() => {
+  //   let timeoutId;
+
+  //   const handleScroll = () => {
+  //     clearTimeout(timeoutId);
+  //     timeoutId = setTimeout(() => {
+  //       const triggerHeight = document.body.offsetHeight * 0.5;
+
+  //       if (window.innerHeight + window.scrollY >= triggerHeight) {
+  //         setOffset((prev) => prev + 10); // Adjust this as needed
+  //       }
+  //     }, 100); // Adjust the delay as needed
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll);
+
+  //   return () => {
+  //     clearTimeout(timeoutId); // Cleanup timeout on unmount
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
 
   useEffect(() => {
     loadMoreNews();
