@@ -5,8 +5,8 @@ import axios from "axios";
 const NewsContext = createContext();
 
 export const NewsProvider = ({ children }) => {
-  const https = `http://localhost:5051`;
-  // const https = `https://manage-news-server134.vercel.app`;
+  // const https = `http://localhost:5051`;
+  const https = `https://manage-news-server134.vercel.app`;
   const [news, setNews] = useState([]);
   const [LoadingCards, setLoadingCards] = useState(true);
   const [LoadingCardsPageTechnology, setLoadingCardsPageTechnology] =
