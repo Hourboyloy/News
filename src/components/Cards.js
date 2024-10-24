@@ -27,7 +27,7 @@ function Cards(props) {
       let threshold;
       if (window.innerWidth <= 768) {
         // Mobile/Tablet breakpoint
-        threshold = documentHeight * 0.1; // 10% from the bottom
+        threshold = documentHeight * 0.3; // 30% from the bottom
       } else {
         threshold = 300; // 300 pixels from the bottom for PC
       }
