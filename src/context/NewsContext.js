@@ -6,7 +6,7 @@ const NewsContext = createContext();
 
 export const NewsProvider = ({ children }) => {
   // const https = `http://localhost:5051`;
-  const https = `https://manage-news-server134.vercel.app`;
+  const https = `https://manage-news-server134.vercel.app`;  
   const [news, setNews] = useState([]);
   const [LoadingCards, setLoadingCards] = useState(true);
   const [LoadingCardsPageTechnology, setLoadingCardsPageTechnology] =
@@ -84,6 +84,8 @@ export const NewsProvider = ({ children }) => {
         // Only update state if there are unique items
         if (uniqueFetchedNews.length > 0) {
           setNewsTechnology((prevNews) => [...prevNews, ...uniqueFetchedNews]);
+        }else{
+          setLoadingCardsPageTechnology(false);
         }
       }
     } catch (err) {
