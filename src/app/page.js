@@ -75,7 +75,8 @@ export default function Page() {
               />
             </div>
           ) : (
-            <LoadingCardsComponent />
+            // <LoadingCardsComponent />
+            ""
           )}
         </div>
       ) : (

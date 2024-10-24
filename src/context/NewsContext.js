@@ -20,80 +20,34 @@ export const NewsProvider = ({ children }) => {
   const [offsetSports, setOffsetSports] = useState(0);
   const [offsetHealth, setOffsetHealth] = useState(0);
 
-  // const fetchNews = async () => {
-  //   try {
-  //     setLoading((prev) => ({ ...prev, news: true })); // Set loading for news
-  //     const response = await axios.get(
-  //       `${https}/user-get-all/?offset=${offset}&limit=10`
-  //     );
+ const fetchNews = async () => {
+   try {
+     const response = await axios.get(
+       `${https}/user-get-all/?offset=${offset}&limit=10`
+     );
 
-  //     if (response.status === 200) {
-  //       const newFetchedNews = response.data.news;
+     if (response.status === 200) {
+       const newFetchedNews = response.data.news;
 
-  //       // Combine existing news and newly fetched news
-  //       const combinedNews = [...news, ...newFetchedNews];
+       // Convert existing news IDs to a Set for faster lookups
+       const newsIds = new Set(news.map((item) => item._id));
 
-  //       // Filter out duplicates by title
-  //       const uniqueNews = combinedNews.filter(
-  //         (item, index, self) =>
-  //           index === self.findIndex((t) => t._id === item._id) // Ensure you have unique IDs
-  //       );
-  //       // Update state with unique news
-  //       if (uniqueNews.length > 0) {
-  //         // Add delayCard field to each unique news item
-  //         const uniqueNewsWithDelayCard = uniqueNews.map((item) => ({
-  //           ...item,
-  //         }));
+       // Filter out duplicates using the Set
+       const uniqueFetchedNews = newFetchedNews.filter(
+         (newItem) => !newsIds.has(newItem._id)
+       );
 
-  //         setNews(uniqueNewsWithDelayCard); // Update state with unique news
-  //       }
+       if (uniqueFetchedNews.length > 0) {
+         setNews((prevNews) => [...prevNews, ...uniqueFetchedNews]);
+         setLoadingCards(false);
+       }
+     }
 
-  //       // Update the offset for the next fetch
-
-  //       // Set delayCard to true after 2 seconds for all items
-  //       const timer = setTimeout(() => {
-  //         setNews((prevNews) =>
-  //           prevNews.map((item) => ({ ...item, delayCard: true }))
-  //         );
-  //       }, 2000);
-
-  //       return () => clearTimeout(timer);
-  //     }
-  //     // setOffset(() => news.length + 5); // Increment offset by 10 for the next batch
-  //   } catch (err) {
-  //     setError(err.message); // Handle error
-  //   }
-  // };
-
-  const fetchNews = async () => {
-    try {
-      const response = await axios.get(
-        `${https}/user-get-all/?offset=${offset}&limit=10`
-      );
-
-      if (response.status === 200) {
-        const newFetchedNews = response.data.news;
-
-        // Check for duplicates only in the last 10 fetched items
-        const uniqueFetchedNews = newFetchedNews.filter(
-          (newItem) =>
-            !news.some((existingItem) => existingItem._id === newItem._id) // Check if item is already in state
-        );
-
-        const updatedNews = [...news, ...uniqueFetchedNews];
-
-        // Update the state with unique news only
-        if (uniqueFetchedNews.length > 0) {
-          setNews(updatedNews); // Update state with unique news
-          setLoadingCards(false);
-        }
-      }
-
-      setOffset((prev) => prev + 10);
-    } catch (err) {
-      setError(err.message); // Handle error
-    }
-  };
+     setOffset((prev) => prev + 10);
+   } catch (err) {
+     setError(err.message); // Handle error
+   }
+ };
 
   const fetchNewsTechnology = async () => {
     try {

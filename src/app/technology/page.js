@@ -71,7 +71,8 @@ function Page() {
           </div>
         </div>
       ) : (
-        <LoadingCardsComponent/>
+        // <LoadingCardsComponent/>
+        ""
       )}
     </div>
   );
