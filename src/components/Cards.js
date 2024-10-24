@@ -68,6 +68,7 @@ function Cards(props) {
   // useEffect(() => {
   //   loadMoreNews();
   // }, [offset]);
+  
 
   useEffect(() => {
     const handleScroll = () => {

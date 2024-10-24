@@ -8,14 +8,12 @@ export const NewsProvider = ({ children }) => {
   // const https = `http://localhost:5051`;
   const https = `https://manage-news-server134.vercel.app`;
   const [news, setNews] = useState([]);
-  const [newsLength, setNewsLength] = useState();
   const [LoadingCards, setLoadingCards] = useState(true);
-  const [LoadingCardsPageHome, setLoadingCardsPageHome] = useState(true);
-  const [LoadingCardsPageHealth, setLoadingCardsPageHealth] = useState(true);
-  const [LoadingCardsPageSports, setLoadingCardsPageSports] = useState(true);
   const [LoadingCardsPageTechnology, setLoadingCardsPageTechnology] =
     useState(true);
-
+  const [LoadingCardsPageHome, setLoadingCardsPageHome] = useState(true);
+  const [LoadingCardsPageSports, setLoadingCardsPageSports] = useState(true);
+  const [LoadingCardsPageHealth, setLoadingCardsPageHealth] = useState(true);
   const [newsTechnology, setNewsTechnology] = useState([]);
   const [newsSports, setNewsSports] = useState([]);
   const [newsHealth, setNewsHealth] = useState([]);
@@ -62,6 +60,38 @@ export const NewsProvider = ({ children }) => {
     }
   };
 
+  const fetchNewsTechnology = async () => {
+    try {
+      const response = await axios.get(
+        `${https}/user-get-all-by-technology/?offset=${offsetTechnology}&limit=10`
+      );
+
+      if (response.status === 200) {
+        const newFetchedNews = response.data.news;
+
+        // Create a Set to track unique titles and IDs
+        const existingTitles = new Set(
+          newsTechnology.map((item) => item.title)
+        );
+        const existingIds = new Set(newsTechnology.map((item) => item._id));
+
+        // Combine existing technology news and newly fetched news while filtering out duplicates
+        const uniqueFetchedNews = newFetchedNews.filter(
+          (newItem) =>
+            !existingTitles.has(newItem.title) && !existingIds.has(newItem._id)
+        );
+
+        // Only update state if there are unique items
+        if (uniqueFetchedNews.length > 0) {
+          setNewsTechnology((prevNews) => [...prevNews, ...uniqueFetchedNews]);
+        }
+      }
+    } catch (err) {
+      setError(err.message); // Handle error
+    }
+  };
+
+
   // const fetchNewsTechnology = async () => {
   //   try {
   //     const response = await axios.get(
@@ -71,55 +101,27 @@ export const NewsProvider = ({ children }) => {
   //     console.log(offsetTechnology);
   //     if (response.status === 200) {
   //       const newFetchedNews = response.data.news;
-  //       // Combine existing technology news and newly fetched news
-  //       const combinedTechnologyNews = [...newsTechnology, ...newFetchedNews];
 
-  //       // Filter out duplicates by title
-  //       const uniqueNews = combinedTechnologyNews.filter(
-  //         (item, index, self) =>
-  //           index === self.findIndex((t) => t.title === item.title)
+  //       // Create a Set to track titles that already exist
+  //       const newsTitles = new Set(newsTechnology.map((item) => item.title));
+
+  //       // Filter out new items by title (you can change to '_id' if available)
+  //       const uniqueFetchedNews = newFetchedNews.filter(
+  //         (newItem) => !newsTitles.has(newItem.title)
   //       );
 
-  //       // Check if there are unique news items to add
-  //       if (uniqueNews.length > 0) {
-  //         setNewsTechnology(uniqueNews); // Update state with unique news
-  //         setLoadingCards(false);
+  //       if (uniqueFetchedNews.length > 0) {
+  //         // Update state only if there are unique items
+  //         setNewsTechnology((prevNews) => [...prevNews, ...uniqueFetchedNews]);
+
+  //       } else {
+  //         setLoadingCardsPageTechnology(false); // Stop loading if no new items
   //       }
   //     }
   //   } catch (err) {
   //     setError(err.message); // Handle error
   //   }
   // };
-
-  const fetchNewsTechnology = async () => {
-    try {
-      const response = await axios.get(
-        `${https}/user-get-all-by-technology/?offset=${offsetTechnology}&limit=10`
-      );
-
-      console.log(offsetTechnology);
-      if (response.status === 200) {
-        const newFetchedNews = response.data.news;
-
-        // Create a Set to track titles that already exist
-        const newsTitles = new Set(newsTechnology.map((item) => item.title));
-
-        // Filter out new items by title (you can change to '_id' if available)
-        const uniqueFetchedNews = newFetchedNews.filter(
-          (newItem) => !newsTitles.has(newItem.title)
-        );
-
-        if (uniqueFetchedNews.length > 0) {
-          // Update state only if there are unique items
-          setNewsTechnology((prevNews) => [...prevNews, ...uniqueFetchedNews]);
-        } else {
-          setLoadingCardsPageTechnology(false);
-        }
-      }
-    } catch (err) {
-      setError(err.message); // Handle error
-    }
-  };
 
   const fetchNewsSports = async () => {
     try {
@@ -389,12 +391,10 @@ export const NewsProvider = ({ children }) => {
         loadMoreNewsTechnology,
         loadMoreNewsSports,
         loadMoreNewsHealth,
-        newsLength,
         LoadingCardsPageTechnology,
         LoadingCardsPageHome,
         LoadingCardsPageHealth,
-        LoadingCardsPageSports
-
+        LoadingCardsPageSports,
       }}
     >
       {children}

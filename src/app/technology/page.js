@@ -61,6 +61,7 @@ function Page() {
     LoadingCardsPageTechnology,
   } = useNewsWeb();
 
+  console.log(newsTechnology);
   return (
     <div>
       {loading.background === false ? (
