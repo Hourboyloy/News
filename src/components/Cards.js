@@ -3,9 +3,11 @@ import React, { useEffect, useState } from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import LoadingCardsComponent from "./LoadingCards";
+import { useNewsWeb } from "@/context/NewsContext";
 
 function Cards(props) {
-  const { news, loadMoreNews, LoadingCard } = props;
+  const { LoadingCard } = useNewsWeb();
+  const { news, loadMoreNews, LoadingCardByPage } = props;
   const [offset, setOffset] = useState(0);
 
   // Initialize AOS for animations
@@ -265,7 +267,13 @@ function Cards(props) {
               </li>
             ))}
         </ul>
-        {LoadingCard ? <LoadingCardsComponent /> : ""}
+        {LoadingCard && news.length <= 0 ? (
+          <LoadingCardsComponent />
+        ) : LoadingCardByPage ? (
+          <LoadingCardsComponent />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
