@@ -25,55 +25,7 @@ export const NewsProvider = ({ children }) => {
   const [offsetSports, setOffsetSports] = useState(0);
   const [offsetHealth, setOffsetHealth] = useState(0);
 
-  // Create a Set outside of the component to keep track of all fetched IDs
-  // const fetchedNewsIds = new Set(); // Global Set to track unique IDs
-
-  // const fetchNews = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `${https}/user-get-all/?offset=${offset}&limit=10`
-  //     );
-
-  //     if (response.status === 200) {
-  //       const newFetchedNews = response.data.news;
-
-  //       // Create a Set to track titles that have already been added
-  //       const existingTitles = new Set();
-
-  //       // Filter out duplicates using the globally tracked Set for IDs and the new Set for titles
-  //       const uniqueFetchedNews = newFetchedNews.filter((newItem) => {
-  //         const isIdUnique = !fetchedNewsIds.has(newItem._id);
-  //         const isTitleUnique = !existingTitles.has(newItem.title);
-
-  //         // If both ID and title are unique, track them
-  //         if (isIdUnique && isTitleUnique) {
-  //           fetchedNewsIds.add(newItem._id); // Track the ID to prevent future duplicates
-  //           existingTitles.add(newItem.title); // Track the title to prevent future duplicates
-  //           return true; // Keep this item
-  //         }
-
-  //         return false; // Discard this item
-  //       });
-
-  //       // Only update state if there are new unique items
-  //       if (uniqueFetchedNews.length > 0) {
-  //         setNews((prevNews) => [...prevNews, ...uniqueFetchedNews]);
-  //       } else {
-  //         setLoadingCardsPageHome(false); // Stop loading if no new items
-  //         console.log("set false page home")
-  //       }
-  //     }
-
-  //     // setOffset((prev) => prev + 10); // Increase the offset for pagination
-  //   } catch (err) {
-  //     setError(err.message); // Handle any errors that occur
-  //   }
-  // };
-
-  // Ensure these Sets are declared outside the component or function scope to persist between requests.
   const fetchedNewsIds = new Set(); // Track unique IDs globally
-  const fetchedNewsTitles = new Set(); // Track unique titles globally
-
   const fetchNews = async () => {
     try {
       const response = await axios.get(
@@ -86,12 +38,9 @@ export const NewsProvider = ({ children }) => {
         // Filter out duplicates based on IDs and Titles
         const uniqueFetchedNews = newFetchedNews.filter((newItem) => {
           const isIdUnique = !fetchedNewsIds.has(newItem._id.trim()); // Trim in case of extra spaces
-          const isTitleUnique = !fetchedNewsTitles.has(newItem.title.trim()); // Ensure titles are consistent
-
-          if (isIdUnique && isTitleUnique) {
-            // Track the new unique items
+          
+          if (isIdUnique ) {
             fetchedNewsIds.add(newItem._id.trim());
-            fetchedNewsTitles.add(newItem.title.trim());
             return true;
           }
           return false;
@@ -99,14 +48,17 @@ export const NewsProvider = ({ children }) => {
 
         // Update the state if there are new unique items
         if (uniqueFetchedNews.length > 0) {
+          console.log("Unique items fetched:", uniqueFetchedNews.length);
+          console.log(newFetchedNews);
+          // Update news state with unique items
           setNews((prevNews) => [...prevNews, ...uniqueFetchedNews]);
         }
 
-        // If fewer items than the limit are returned, stop loading
+        // If no new items are returned, stop loading
         if (newFetchedNews.length < 1) {
           setLoadingCardsPageHome(false); // No more items to fetch, stop loading
         }
-      } 
+      }
     } catch (err) {
       setError(err.message);
     }
@@ -269,7 +221,6 @@ export const NewsProvider = ({ children }) => {
       // Map unique news items to include delayCard property
       const uniqueNewsWithDelayCard = uniqueNews.map((item) => ({
         ...item, // Spread existing item properties
-        delayCard: true, // Set delayCard to true for each item
       }));
 
       setNews((prevNews) => [...prevNews, ...uniqueNewsWithDelayCard]); // Append unique news
@@ -286,7 +237,6 @@ export const NewsProvider = ({ children }) => {
       // Map unique news items to include delayCard property
       const uniqueNewsWithDelayCard = uniqueNews.map((item) => ({
         ...item, // Spread existing item properties
-        delayCard: true, // Set delayCard to true for each item
       }));
 
       setNews((prevNews) => [...prevNews, ...uniqueNewsWithDelayCard]); // Append unique news
@@ -303,7 +253,6 @@ export const NewsProvider = ({ children }) => {
       // Map unique news items to include delayCard property
       const uniqueNewsWithDelayCard = uniqueNews.map((item) => ({
         ...item, // Spread existing item properties
-        delayCard: true, // Set delayCard to true for each item
       }));
 
       setNews((prevNews) => [...prevNews, ...uniqueNewsWithDelayCard]); // Append unique news
@@ -327,7 +276,6 @@ export const NewsProvider = ({ children }) => {
       // Map unique news items to include delayCard property
       const uniqueTechNewsWithDelayCard = uniqueTechNews.map((item) => ({
         ...item, // Spread existing item properties
-        delayCard: true, // Initialize delayCard to false (or true if desired)
       }));
 
       setNewsTechnology((prevNewsTechnology) => [
@@ -348,7 +296,6 @@ export const NewsProvider = ({ children }) => {
     if (uniqueHealthNews.length > 0) {
       const uniqueHealthNewsWithDelayCard = uniqueHealthNews.map((item) => ({
         ...item,
-        delayCard: true,
       }));
 
       setNewsHealth((prevNewsHealth) => [
@@ -369,7 +316,6 @@ export const NewsProvider = ({ children }) => {
     if (uniqueSportsNews.length > 0) {
       const uniqueSportsNewsWithDelayCard = uniqueSportsNews.map((item) => ({
         ...item,
-        delayCard: true,
       }));
 
       setNewsSports((prevNewsSport) => [

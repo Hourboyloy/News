@@ -16,65 +16,12 @@ function Cards(props) {
     Aos.init({ duration: 0, once: true });
   }, []);
 
-  // Function to handle the scroll event
-  // const handleScroll = () => {
-  //   const scrollHeight = document.documentElement.scrollHeight;
-  //   const currentHeight =
-  //     window.innerHeight + document.documentElement.scrollTop;
-
-  //   if (currentHeight + 1 >= scrollHeight) {
-  //     setOffset((prevOffset) => prevOffset + 5);
-  //   }
-  // };
-
-  // const debounce = (func, delay) => {
-  //   let timeout;
-  //   return (...args) => {
-  //     clearTimeout(timeout);
-  //     timeout = setTimeout(() => func(...args), delay);
-  //   };
-  // };
-  // const handleScroll = debounce(() => {
-  //   const scrollTop = document.documentElement.scrollTop;
-  //   const windowHeight = window.innerHeight;
-  //   const scrollHeight = document.documentElement.scrollHeight;
-
-  //   // Trigger load more when near the bottom (e.g., 100px from the bottom)
-  //   const threshold = 500;
-
-  //   if (scrollTop + windowHeight + threshold >= scrollHeight) {
-  //     setOffset((prevOffset) => prevOffset + 5); // Increase offset to load more content
-  //   }
-  // }, 80);
-
-  // Add scroll event listener with debounce
-  // useEffect(() => {
-  //   const debounceScroll = () => {
-  //     let timeout;
-  //     return () => {
-  //       if (timeout) clearTimeout(timeout);
-  //       timeout = setTimeout(handleScroll, 50); // 50ms debounce
-  //     };
-  //   };
-
-  //   const debouncedHandleScroll = debounceScroll();
-  //   window.addEventListener("scroll", debouncedHandleScroll);
-
-  //   return () => {
-  //     window.removeEventListener("scroll", debouncedHandleScroll);
-  //   };
-  // }, [offset]);
-
-  // // Load more news whenever the offset changes
-  // useEffect(() => {
-  //   loadMoreNews();
-  // }, [offset]);
 
   useEffect(() => {
     const handleScroll = () => {
       if (
         window.innerHeight + window.scrollY >=
-        document.body.offsetHeight - 200
+        document.body.offsetHeight - 300
       ) {
         setOffset((prev) => prev + 10); // Adjust this as needed
       }
