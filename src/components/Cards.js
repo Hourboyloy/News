@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import LoadingCardsComponent from "./LoadingCards";
+// import LoadingCardsComponent from "./LoadingCards";
 import { useNewsWeb } from "@/context/NewsContext";
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
