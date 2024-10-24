@@ -57,9 +57,10 @@
 "use client";
 import Cards from "@/components/Cards";
 import { useNewsWeb } from "@/context/NewsContext"; // Import the custom hook
+import LoadingCardsComponent from "@/components/LoadingCards";
 
 export default function Page() {
-  const { news, loading, loadMoreNews } = useNewsWeb(); // Get news, loading, and error from context
+  const { news, loading, loadMoreNews, LoadingCards } = useNewsWeb(); // Get news, loading, and error from context
 
   return (
     <div>
@@ -70,12 +71,11 @@ export default function Page() {
               <Cards
                 loadMoreNews={loadMoreNews}
                 news={news}
+                LoadingCard={LoadingCards}
               />
             </div>
           ) : (
-            <div className="text-white text-center pt-4">
-              No news available.
-            </div>
+            <LoadingCardsComponent />
           )}
         </div>
       ) : (

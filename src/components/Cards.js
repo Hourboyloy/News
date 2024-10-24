@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import LoadingCardsComponent from "./LoadingCards";
 
 function Cards(props) {
-   const { news, loadMoreNews } = props;
+  const { news, loadMoreNews, LoadingCard } = props;
   const [offset, setOffset] = useState(0);
 
   // Initialize AOS for animations
@@ -23,26 +24,25 @@ function Cards(props) {
   //   }
   // };
 
-const debounce = (func, delay) => {
-  let timeout;
-  return (...args) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), delay);
+  const debounce = (func, delay) => {
+    let timeout;
+    return (...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), delay);
+    };
   };
-};
   const handleScroll = debounce(() => {
     const scrollTop = document.documentElement.scrollTop;
     const windowHeight = window.innerHeight;
     const scrollHeight = document.documentElement.scrollHeight;
 
     // Trigger load more when near the bottom (e.g., 100px from the bottom)
-    const threshold = 300;
+    const threshold = 500;
 
     if (scrollTop + windowHeight + threshold >= scrollHeight) {
       setOffset((prevOffset) => prevOffset + 5); // Increase offset to load more content
     }
   }, 80);
-
 
   // Add scroll event listener with debounce
   useEffect(() => {
@@ -70,7 +70,7 @@ const debounce = (func, delay) => {
   return (
     <div className="bg-gray-900 space-y-2 mx-auto max-w-[1520px] p-2 pb-20">
       <div className="">
-        <ul className="grid gap-3 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 pb-5">
+        <ul className="grid gap-3 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 pb-3">
           {news.length > 0 &&
             news.map((ele, i) => (
               <li
@@ -89,187 +89,152 @@ const debounce = (func, delay) => {
                     <div>
                       <div className="lg:h-48 md:h-52 h-56 relative">
                         {/* Image Display */}
-                        {ele.delayCard ? (
-                          <div className="lg:h-48 md:h-52 h-56 relative flex items-center justify-center transition-all duration-700 ease-in-out">
-                            {/* Breaking News Label */}
-                            {ele.breakingnews === 1 && (
-                              <div className="absolute z-10 top-1.5 right-0 bg-orange-600 text-xs font-semibold text-white px-2 py-1 rounded-md shadow-md transition-transform duration-300 ease-in-out">
-                                Breaking News
-                              </div>
-                            )}
-
-                            {/* Image with Smooth Transition */}
-                            <img
-                              src={ele.photo}
-                              className="h-full rounded-t-lg shadow-lg opacity-0 transform transition-transform duration-700 ease-in-out"
-                              width={500}
-                              height={300}
-                              alt="Image description"
-                              onLoad={(e) => {
-                                e.target.classList.remove("opacity-0");
-                                e.target.classList.add(
-                                  "opacity-100",
-                                  "scale-100"
-                                );
-                              }}
-                            />
-
-                            {/* Hover Overlay */}
-                            <div className="responsiveforlaptop hidden w-full h-full rounded-t-lg transition-opacity duration-500 ease-in-out items-center absolute group-hover:inset-0 group-hover:bg-gray-800 group-hover:bg-opacity-50 z-20 top-0 group-hover:opacity-100 opacity-0">
-                              <div className="flex justify-center items-center mt-2 space-x-4 mr-44 duration-75 transition-all ease-in-out">
-                                {/* Close Button */}
-                                <div className="w-10 h-10 bg-white flex justify-center items-center rounded-full shadow-md cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="w-6 h-6 text-gray-800"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M6 18 18 6M6 6l12 12"
-                                    />
-                                  </svg>
-                                </div>
-
-                                {/* Action Button */}
-                                <div className="w-10 h-10 bg-white flex justify-center items-center rounded-full shadow-md cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="w-6 h-6 text-gray-800"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                                    />
-                                  </svg>
-                                </div>
-                              </div>
+                        <div className="lg:h-48 md:h-52 h-56 relative flex items-center justify-center transition-all duration-700 ease-in-out">
+                          {/* Breaking News Label */}
+                          {ele.breakingnews === 1 && (
+                            <div className="absolute z-10 top-1.5 right-0 bg-orange-600 text-xs font-semibold text-white px-2 py-1 rounded-md shadow-md transition-transform duration-300 ease-in-out">
+                              Breaking News
                             </div>
-                          </div>
-                        ) : (
-                          ""
-                        )}
-
-                        {/* Fallback background pulse animation */}
-                        <div
-                          className={`h-full w-full absolute z-20 top-0 left-0 transition-opacity duration-300 ease-in-out ${
-                            ele.delayCard
-                              ? "opacity-0"
-                              : "opacity-100 bg-gray-600 animate-pulse"
-                          }`}
-                        ></div>
-                      </div>
-                    </div>
-
-                    <div
-                      className={`p-3 ${
-                        ele.delayCard ? "space-y-2" : "space-y-3"
-                      } transition-all duration-500 ease-in-out`}
-                    >
-                      <div className="cursor-pointer transition-opacity duration-500 ease-in-out">
-                        {ele.delayCard ? (
-                          <div className="flex flex-wrap items-center">
-                            {ele.category && (
-                              <p className="pr-1 capitalize text-sm text-gray-300 font-semibold transition-opacity duration-300 ease-in-out">
-                                {ele.category}
-                              </p>
-                            )}
-                            <p className="text-gray-300 text-[12px] transition-opacity duration-300 ease-in-out">
-                              {`. ${(() => {
-                                const timeDifference =
-                                  Date.now() -
-                                  new Date(ele.createdAt).getTime();
-                                const seconds = Math.floor(
-                                  timeDifference / 1000
-                                );
-                                const minutes = Math.floor(seconds / 60);
-                                const hours = Math.floor(minutes / 60);
-                                const days = Math.floor(hours / 24);
-                                const weeks = Math.floor(days / 7);
-
-                                if (weeks > 0) {
-                                  return `${weeks} week${
-                                    weeks > 1 ? "s" : ""
-                                  } ago`;
-                                } else if (days > 0) {
-                                  return `${days} day${
-                                    days > 1 ? "s" : ""
-                                  } ago`;
-                                } else if (hours > 0) {
-                                  return `${hours}h ago`;
-                                } else if (minutes > 0) {
-                                  return `${minutes} min ago`;
-                                } else {
-                                  return `just now`;
-                                }
-                              })()}`}
-                            </p>
-                          </div>
-                        ) : (
-                          <p className="bg-gray-600 py-[5px] w-24 rounded animate-pulse"></p>
-                        )}
-                      </div>
-
-                      <div className="transition-opacity duration-500 ease-in-out">
-                        {ele.delayCard === true ? (
-                          <div className="font-normal text-sm text-white">
-                            {ele.title.length > 64 ? (
-                              <p>{ele.title.slice(0, 63)}...</p>
-                            ) : (
-                              ele.title
-                            )}
-                          </div>
-                        ) : (
-                          <div className="space-y-2.5">
-                            <p className="bg-gray-600 py-[5px] w-11/12 rounded animate-pulse"></p>
-                            <p className="bg-gray-600 py-[5px] w-8/12 rounded animate-pulse"></p>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="text-gray-400 flex justify-between items-center">
-                        <div className="">
-                          {ele.delayCard === true ? (
-                            <p className="text-xs">
-                              {ele.createdAt.split("T")[0]}
-                            </p>
-                          ) : (
-                            <p className="bg-gray-600 py-[5px] w-16 rounded animate-pulse"></p>
                           )}
-                        </div>
 
-                        <div className="">
-                          {ele.delayCard === true ? (
-                            ele.trending === 1 && (
-                              <div className="cursor-pointer flex justify-center items-center space-x-1">
+                          {/* Image with Smooth Transition */}
+                          <img
+                            src={ele.photo}
+                            className="h-full rounded-t-lg shadow-lg opacity-0 transform transition-transform duration-700 ease-in-out"
+                            width={500}
+                            height={300}
+                            alt="Image description"
+                            onLoad={(e) => {
+                              e.target.classList.remove("opacity-0");
+                              e.target.classList.add(
+                                "opacity-100",
+                                "scale-100"
+                              );
+                            }}
+                          />
+
+                          {/* Hover Overlay */}
+                          <div className="responsiveforlaptop hidden w-full h-full rounded-t-lg transition-opacity duration-500 ease-in-out items-center absolute group-hover:inset-0 group-hover:bg-gray-800 group-hover:bg-opacity-50 z-20 top-0 group-hover:opacity-100 opacity-0">
+                            <div className="flex justify-center items-center mt-2 space-x-4 mr-44 duration-75 transition-all ease-in-out">
+                              {/* Close Button */}
+                              <div className="w-10 h-10 bg-white flex justify-center items-center rounded-full shadow-md cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600">
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
                                   viewBox="0 0 24 24"
                                   strokeWidth={1.5}
                                   stroke="currentColor"
-                                  className="w-[18px] text-gray-300"
+                                  className="w-6 h-6 text-gray-800"
                                 >
                                   <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
-                                    d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"
+                                    d="M6 18 18 6M6 6l12 12"
                                   />
                                 </svg>
-                                <span className="text-xs">Trending</span>
                               </div>
-                            )
+
+                              {/* Action Button */}
+                              <div className="w-10 h-10 bg-white flex justify-center items-center rounded-full shadow-md cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth={1.5}
+                                  stroke="currentColor"
+                                  className="w-6 h-6 text-gray-800"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {/* Fallback background pulse animation */}
+                        <div
+                          className={`h-full w-full absolute z-20 top-0 left-0 transition-opacity opacity-0 duration-300 ease-in-out`}
+                        ></div>
+                      </div>
+                    </div>
+
+                    <div
+                      className={`p-3 space-y-2 transition-all duration-500 ease-in-out`}
+                    >
+                      <div className="cursor-pointer transition-opacity duration-500 ease-in-out">
+                        <div className="flex flex-wrap items-center">
+                          {ele.category && (
+                            <p className="pr-1 capitalize text-sm text-gray-300 font-semibold transition-opacity duration-300 ease-in-out">
+                              {ele.category}
+                            </p>
+                          )}
+                          <p className="text-gray-300 text-[12px] transition-opacity duration-300 ease-in-out">
+                            {`. ${(() => {
+                              const timeDifference =
+                                Date.now() - new Date(ele.createdAt).getTime();
+                              const seconds = Math.floor(timeDifference / 1000);
+                              const minutes = Math.floor(seconds / 60);
+                              const hours = Math.floor(minutes / 60);
+                              const days = Math.floor(hours / 24);
+                              const weeks = Math.floor(days / 7);
+
+                              if (weeks > 0) {
+                                return `${weeks} week${
+                                  weeks > 1 ? "s" : ""
+                                } ago`;
+                              } else if (days > 0) {
+                                return `${days} day${days > 1 ? "s" : ""} ago`;
+                              } else if (hours > 0) {
+                                return `${hours}h ago`;
+                              } else if (minutes > 0) {
+                                return `${minutes} min ago`;
+                              } else {
+                                return `just now`;
+                              }
+                            })()}`}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="transition-opacity duration-500 ease-in-out">
+                        <div className="font-normal text-sm text-white">
+                          {ele.title.length > 64 ? (
+                            <p>{ele.title.slice(0, 63)}...</p>
                           ) : (
-                            <p className="bg-gray-600 py-[5px] w-12 rounded animate-pulse"></p>
+                            ele.title
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="text-gray-400 flex justify-between items-center">
+                        <div className="">
+                          <p className="text-xs">
+                            {ele.createdAt.split("T")[0]}
+                          </p>
+                        </div>
+
+                        <div className="">
+                          {ele.trending === 1 && (
+                            <div className="cursor-pointer flex justify-center items-center space-x-1">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-[18px] text-gray-300"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"
+                                />
+                              </svg>
+                              <span className="text-xs">Trending</span>
+                            </div>
                           )}
                         </div>
                       </div>
@@ -279,6 +244,7 @@ const debounce = (func, delay) => {
               </li>
             ))}
         </ul>
+        {LoadingCard ? <LoadingCardsComponent /> : ""}
       </div>
     </div>
   );

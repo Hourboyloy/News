@@ -2,9 +2,10 @@
 import React from "react";
 import { useNewsWeb } from "@/context/NewsContext";
 import Cards from "@/components/Cards";
+import LoadingCardsComponent from "@/components/LoadingCards";
 
 function Page() {
-  const { newsSports, loading, loadMoreNewsSports } =
+  const { newsSports, loading, loadMoreNewsSports, LoadingCards } =
     useNewsWeb();
 
   return (
@@ -14,12 +15,13 @@ function Page() {
           <div>
             <Cards
               news={newsSports}
+              LoadingCard={LoadingCards}
               loadMoreNews={loadMoreNewsSports}
             />
           </div>
         </div>
       ) : (
-        ""
+        <LoadingCardsComponent/>
       )}
     </div>
   );

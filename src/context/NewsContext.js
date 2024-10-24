@@ -7,14 +7,15 @@ const NewsContext = createContext();
 export const NewsProvider = ({ children }) => {
   // const https = `http://localhost:5051`;
   const https = `https://manage-news-server134.vercel.app`;
-  const [news, setNews] = useState([]); // Initialize with an empty array for news
-  const [newsTechnology, setNewsTechnology] = useState([]); // Initialize with an empty array for technology news
-  const [newsSports, setNewsSports] = useState([]); // Initialize with an empty array for technology news
-  const [newsHealth, setNewsHealth] = useState([]); // Initialize with an empty array for technology news
-  const [background, setBackground] = useState(null); // Initialize with null for background
-  const [loading, setLoading] = useState({ news: true, background: true }); // Track loading state for both news and background
-  const [error, setError] = useState(null); // Track any error
-  const [offset, setOffset] = useState(0); // Add offset to track pagination for general news
+  const [news, setNews] = useState([]);
+  const [LoadingCards, setLoadingCards] = useState();
+  const [newsTechnology, setNewsTechnology] = useState([]);
+  const [newsSports, setNewsSports] = useState([]);
+  const [newsHealth, setNewsHealth] = useState([]);
+  const [background, setBackground] = useState(null);
+  const [loading, setLoading] = useState({ news: true, background: true });
+  const [error, setError] = useState(null);
+  const [offset, setOffset] = useState(0);
   const [offsetTechnology, setOffsetTechnology] = useState(0);
   const [offsetSports, setOffsetSports] = useState(0);
   const [offsetHealth, setOffsetHealth] = useState(0);
@@ -64,50 +65,35 @@ export const NewsProvider = ({ children }) => {
   //   }
   // };
 
+  const fetchNews = async () => {
+    try {
+      const response = await axios.get(
+        `${https}/user-get-all/?offset=${offset}&limit=10`
+      );
 
- const fetchNews = async () => {
-   try {
-     setLoading((prev) => ({ ...prev, news: true })); // Set loading for news
-     const response = await axios.get(
-       `${https}/user-get-all/?offset=${offset}&limit=10`
-     );
+      if (response.status === 200) {
+        const newFetchedNews = response.data.news;
 
-     if (response.status === 200) {
-       const newFetchedNews = response.data.news;
+        // Check for duplicates only in the last 10 fetched items
+        const uniqueFetchedNews = newFetchedNews.filter(
+          (newItem) =>
+            !news.some((existingItem) => existingItem._id === newItem._id) // Check if item is already in state
+        );
 
-       // Check for duplicates only in the last 10 fetched items
-       const uniqueFetchedNews = newFetchedNews.filter(
-         (newItem) =>
-           !news.some((existingItem) => existingItem._id === newItem._id) // Check if item is already in state
-       );
+        const updatedNews = [...news, ...uniqueFetchedNews];
 
-       // Combine the existing news and unique new items with delayCard: false
-       const updatedNews = [
-         ...news,
-         ...uniqueFetchedNews.map((item) => ({ ...item, delayCard: false })), // Add delayCard: false
-       ];
+        // Update the state with unique news only
+        if (uniqueFetchedNews.length > 0) {
+          setNews(updatedNews); // Update state with unique news
+          setLoadingCards(false);
+        }
+      }
 
-       // Update the state with unique news only
-       if (uniqueFetchedNews.length > 0) {
-         setNews(updatedNews); // Update state with unique news
-       }
-
-       // Set delayCard to true after 2 seconds for all items
-       const timer = setTimeout(() => {
-         setNews((prevNews) =>
-           prevNews.map((item) => ({ ...item, delayCard: true }))
-         );
-       }, 2000);
-
-       return () => clearTimeout(timer);
-     }
-
-     // Optionally, update the offset for the next fetch
-     // setOffset((prev) => prev + 10); // Increment offset by 10 for the next batch
-   } catch (err) {
-     setError(err.message); // Handle error
-   }
- };
+      setOffset((prev) => prev + 10);
+    } catch (err) {
+      setError(err.message); // Handle error
+    }
+  };
 
   const fetchNewsTechnology = async () => {
     try {
@@ -118,7 +104,6 @@ export const NewsProvider = ({ children }) => {
       console.log(offsetTechnology);
       if (response.status === 200) {
         const newFetchedNews = response.data.news;
-
         // Combine existing technology news and newly fetched news
         const combinedTechnologyNews = [...newsTechnology, ...newFetchedNews];
 
@@ -130,21 +115,8 @@ export const NewsProvider = ({ children }) => {
 
         // Check if there are unique news items to add
         if (uniqueNews.length > 0) {
-          // Add delayCard field to each unique news item
-          const uniqueNewsWithDelayCard = uniqueNews.map((item) => ({
-            ...item,
-          }));
-
-          setNewsTechnology(uniqueNewsWithDelayCard); // Update state with unique news
-
-          // Set delayCard to true after 2 seconds
-          const timer = setTimeout(() => {
-            setNewsTechnology((prevNews) =>
-              prevNews.map((item) => ({ ...item, delayCard: true }))
-            );
-          }, 2000);
-
-          return () => clearTimeout(timer);
+          setNewsTechnology(uniqueNews); // Update state with unique news
+          setLoadingCards(false);
         }
       }
     } catch (err) {
@@ -172,21 +144,8 @@ export const NewsProvider = ({ children }) => {
 
         // Check if there are unique news items to add
         if (uniqueNews.length > 0) {
-          // Add delayCard field to each unique news item
-          const uniqueNewsWithDelayCard = uniqueNews.map((item) => ({
-            ...item,
-          }));
-
-          setNewsSports(uniqueNewsWithDelayCard); // Update state with unique news
-
-          // Set delayCard to true after 2 seconds
-          const timer = setTimeout(() => {
-            setNewsSports((prevNews) =>
-              prevNews.map((item) => ({ ...item, delayCard: true }))
-            );
-          }, 2000);
-
-          return () => clearTimeout(timer);
+          setNewsSports(uniqueNews); // Update state with unique news
+          setLoadingCards(false);
         }
       }
     } catch (err) {
@@ -212,23 +171,9 @@ export const NewsProvider = ({ children }) => {
             index === self.findIndex((t) => t.title === item.title)
         );
 
-        // Check if there are unique news items to add
         if (uniqueNews.length > 0) {
-          // Add delayCard field to each unique news item
-          const uniqueNewsWithDelayCard = uniqueNews.map((item) => ({
-            ...item,
-          }));
-
-          setNewsHealth(uniqueNewsWithDelayCard); // Update state with unique news
-
-          // Set delayCard to true after 2 seconds
-          const timer = setTimeout(() => {
-            setNewsHealth((prevNews) =>
-              prevNews.map((item) => ({ ...item, delayCard: true }))
-            );
-          }, 2000);
-
-          return () => clearTimeout(timer);
+          setNewsHealth(uniqueNews);
+          setLoadingCards(false);
         }
       }
     } catch (err) {
@@ -404,6 +349,13 @@ export const NewsProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    if (offset || offsetSports || offsetHealth || offsetTechnology) {
+      setLoadingCards(true);
+    }
+    console.log("loading", LoadingCards); // logs the previous state
+  }, [offset, offsetSports, offsetHealth, offsetTechnology]);
+
+  useEffect(() => {
     if (newsTechnology) {
       handleStoreAllTechnologyNews();
     } else if (newsHealth) {
@@ -429,6 +381,7 @@ export const NewsProvider = ({ children }) => {
   return (
     <NewsContext.Provider
       value={{
+        LoadingCards,
         background,
         loading,
         news,
