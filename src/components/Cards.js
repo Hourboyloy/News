@@ -24,45 +24,66 @@ function Cards(props) {
   //   }
   // };
 
-  const debounce = (func, delay) => {
-    let timeout;
-    return (...args) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), delay);
-    };
-  };
-  const handleScroll = debounce(() => {
-    const scrollTop = document.documentElement.scrollTop;
-    const windowHeight = window.innerHeight;
-    const scrollHeight = document.documentElement.scrollHeight;
+  // const debounce = (func, delay) => {
+  //   let timeout;
+  //   return (...args) => {
+  //     clearTimeout(timeout);
+  //     timeout = setTimeout(() => func(...args), delay);
+  //   };
+  // };
+  // const handleScroll = debounce(() => {
+  //   const scrollTop = document.documentElement.scrollTop;
+  //   const windowHeight = window.innerHeight;
+  //   const scrollHeight = document.documentElement.scrollHeight;
 
-    // Trigger load more when near the bottom (e.g., 100px from the bottom)
-    const threshold = 500;
+  //   // Trigger load more when near the bottom (e.g., 100px from the bottom)
+  //   const threshold = 500;
 
-    if (scrollTop + windowHeight + threshold >= scrollHeight) {
-      setOffset((prevOffset) => prevOffset + 5); // Increase offset to load more content
-    }
-  }, 80);
+  //   if (scrollTop + windowHeight + threshold >= scrollHeight) {
+  //     setOffset((prevOffset) => prevOffset + 5); // Increase offset to load more content
+  //   }
+  // }, 80);
 
   // Add scroll event listener with debounce
+  // useEffect(() => {
+  //   const debounceScroll = () => {
+  //     let timeout;
+  //     return () => {
+  //       if (timeout) clearTimeout(timeout);
+  //       timeout = setTimeout(handleScroll, 50); // 50ms debounce
+  //     };
+  //   };
+
+  //   const debouncedHandleScroll = debounceScroll();
+  //   window.addEventListener("scroll", debouncedHandleScroll);
+
+  //   return () => {
+  //     window.removeEventListener("scroll", debouncedHandleScroll);
+  //   };
+  // }, [offset]);
+
+  // // Load more news whenever the offset changes
+  // useEffect(() => {
+  //   loadMoreNews();
+  // }, [offset]);
+
   useEffect(() => {
-    const debounceScroll = () => {
-      let timeout;
-      return () => {
-        if (timeout) clearTimeout(timeout);
-        timeout = setTimeout(handleScroll, 50); // 50ms debounce
-      };
+    const handleScroll = () => {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.body.offsetHeight - 200
+      ) {
+        setOffset((prev) => prev + 10); // Adjust this as needed
+      }
     };
 
-    const debouncedHandleScroll = debounceScroll();
-    window.addEventListener("scroll", debouncedHandleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", debouncedHandleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, [offset]);
+  }, []);
 
-  // Load more news whenever the offset changes
   useEffect(() => {
     loadMoreNews();
   }, [offset]);

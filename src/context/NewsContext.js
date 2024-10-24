@@ -294,6 +294,7 @@ const fetchNewsHealth = async () => {
   // Function to load more general news
   const loadMoreNews = () => {
     setOffset(() => news.length + 10);
+    console.log(offset)
     fetchNews();
   };
 
@@ -341,7 +342,6 @@ const fetchNewsHealth = async () => {
     if (offset || offsetSports || offsetHealth || offsetTechnology) {
       setLoadingCards(true);
     }
-    console.log("loading", LoadingCards); // logs the previous state
   }, [offset, offsetSports, offsetHealth, offsetTechnology]);
 
   useEffect(() => {
