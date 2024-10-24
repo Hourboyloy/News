@@ -20,34 +20,69 @@ export const NewsProvider = ({ children }) => {
   const [offsetSports, setOffsetSports] = useState(0);
   const [offsetHealth, setOffsetHealth] = useState(0);
 
- const fetchNews = async () => {
-   try {
-     const response = await axios.get(
-       `${https}/user-get-all/?offset=${offset}&limit=10`
-     );
+  // Create a Set outside of the component to keep track of all fetched IDs
+  const fetchedNewsIds = new Set();
 
-     if (response.status === 200) {
-       const newFetchedNews = response.data.news;
+  const fetchNews = async () => {
+    try {
+      const response = await axios.get(
+        `${https}/user-get-all/?offset=${offset}&limit=10`
+      );
 
-       // Convert existing news IDs to a Set for faster lookups
-       const newsIds = new Set(news.map((item) => item._id));
+      if (response.status === 200) {
+        const newFetchedNews = response.data.news;
 
-       // Filter out duplicates using the Set
-       const uniqueFetchedNews = newFetchedNews.filter(
-         (newItem) => !newsIds.has(newItem._id)
-       );
+        // Filter out duplicates using the globally tracked Set
+        const uniqueFetchedNews = newFetchedNews.filter((newItem) => {
+          if (!fetchedNewsIds.has(newItem._id)) {
+            fetchedNewsIds.add(newItem._id); // Track the ID to prevent future duplicates
+            return true;
+          }
+          return false;
+        });
 
-       if (uniqueFetchedNews.length > 0) {
-         setNews((prevNews) => [...prevNews, ...uniqueFetchedNews]);
-         setLoadingCards(false);
-       }
-     }
+        // Only update state if there are new unique items
+        if (uniqueFetchedNews.length > 0) {
+          setNews((prevNews) => [...prevNews, ...uniqueFetchedNews]);
+          setLoadingCards(false);
+        }
+      }
 
-     setOffset((prev) => prev + 10);
-   } catch (err) {
-     setError(err.message); // Handle error
-   }
- };
+      setOffset((prev) => prev + 10); // Increase the offset for pagination
+    } catch (err) {
+      setError(err.message); // Handle any errors that occur
+    }
+  };
+
+  // const fetchNewsTechnology = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${https}/user-get-all-by-technology/?offset=${offsetTechnology}&limit=10`
+  //     );
+
+  //     console.log(offsetTechnology);
+  //     if (response.status === 200) {
+  //       const newFetchedNews = response.data.news;
+  //       // Combine existing technology news and newly fetched news
+  //       const combinedTechnologyNews = [...newsTechnology, ...newFetchedNews];
+
+  //       // Filter out duplicates by title
+  //       const uniqueNews = combinedTechnologyNews.filter(
+  //         (item, index, self) =>
+  //           index === self.findIndex((t) => t.title === item.title)
+  //       );
+
+  //       // Check if there are unique news items to add
+  //       if (uniqueNews.length > 0) {
+  //         setNewsTechnology(uniqueNews); // Update state with unique news
+  //         setLoadingCards(false);
+  //       }
+  //     }
+  //   } catch (err) {
+  //     setError(err.message); // Handle error
+  //   }
+  // };
+
 
   const fetchNewsTechnology = async () => {
     try {
@@ -58,18 +93,18 @@ export const NewsProvider = ({ children }) => {
       console.log(offsetTechnology);
       if (response.status === 200) {
         const newFetchedNews = response.data.news;
-        // Combine existing technology news and newly fetched news
-        const combinedTechnologyNews = [...newsTechnology, ...newFetchedNews];
 
-        // Filter out duplicates by title
-        const uniqueNews = combinedTechnologyNews.filter(
-          (item, index, self) =>
-            index === self.findIndex((t) => t.title === item.title)
+        // Create a Set to track titles that already exist
+        const newsTitles = new Set(newsTechnology.map((item) => item.title));
+
+        // Filter out new items by title (you can change to '_id' if available)
+        const uniqueFetchedNews = newFetchedNews.filter(
+          (newItem) => !newsTitles.has(newItem.title)
         );
 
-        // Check if there are unique news items to add
-        if (uniqueNews.length > 0) {
-          setNewsTechnology(uniqueNews); // Update state with unique news
+        if (uniqueFetchedNews.length > 0) {
+          // Update state only if there are unique items
+          setNewsTechnology((prevNews) => [...prevNews, ...uniqueFetchedNews]);
           setLoadingCards(false);
         }
       }
@@ -78,62 +113,62 @@ export const NewsProvider = ({ children }) => {
     }
   };
 
-  const fetchNewsSports = async () => {
-    try {
-      const response = await axios.get(
-        `${https}/user-get-all-by-sports/?offset=${offsetSports}&limit=10`
+const fetchNewsSports = async () => {
+  try {
+    const response = await axios.get(
+      `${https}/user-get-all-by-sports/?offset=${offsetSports}&limit=10`
+    );
+
+    if (response.status === 200) {
+      const newFetchedNews = response.data.news;
+
+      // Create a Set to track titles that already exist in the state
+      const newsTitles = new Set(newsSports.map((item) => item.title));
+
+      // Filter out new items whose titles already exist in the state
+      const uniqueFetchedNews = newFetchedNews.filter(
+        (newItem) => !newsTitles.has(newItem.title)
       );
 
-      if (response.status === 200) {
-        const newFetchedNews = response.data.news;
-
-        // Combine existing technology news and newly fetched news
-        const combinedTechnologyNews = [...newsSports, ...newFetchedNews];
-
-        // Filter out duplicates by title
-        const uniqueNews = combinedTechnologyNews.filter(
-          (item, index, self) =>
-            index === self.findIndex((t) => t.title === item.title)
-        );
-
-        // Check if there are unique news items to add
-        if (uniqueNews.length > 0) {
-          setNewsSports(uniqueNews); // Update state with unique news
-          setLoadingCards(false);
-        }
+      if (uniqueFetchedNews.length > 0) {
+        // Update state only if there are unique news items
+        setNewsSports((prevNews) => [...prevNews, ...uniqueFetchedNews]);
+        setLoadingCards(false);
       }
-    } catch (err) {
-      setError(err.message); // Handle error
     }
-  };
+  } catch (err) {
+    setError(err.message); // Handle error
+  }
+};
 
-  const fetchNewsHealth = async () => {
-    try {
-      const response = await axios.get(
-        `${https}/user-get-all-by-health/?offset=${offsetHealth}&limit=10`
+
+const fetchNewsHealth = async () => {
+  try {
+    const response = await axios.get(
+      `${https}/user-get-all-by-health/?offset=${offsetHealth}&limit=10`
+    );
+
+    if (response.status === 200) {
+      const newFetchedNews = response.data.news;
+
+      // Create a Set to track titles that already exist
+      const newsTitles = new Set(newsHealth.map((item) => item.title));
+
+      // Filter out new items whose titles are already in the state
+      const uniqueFetchedNews = newFetchedNews.filter(
+        (newItem) => !newsTitles.has(newItem.title)
       );
 
-      if (response.status === 200) {
-        const newFetchedNews = response.data.news;
-
-        // Combine existing technology news and newly fetched news
-        const combinedTechnologyNews = [...newsHealth, ...newFetchedNews];
-
-        // Filter out duplicates by title
-        const uniqueNews = combinedTechnologyNews.filter(
-          (item, index, self) =>
-            index === self.findIndex((t) => t.title === item.title)
-        );
-
-        if (uniqueNews.length > 0) {
-          setNewsHealth(uniqueNews);
-          setLoadingCards(false);
-        }
+      if (uniqueFetchedNews.length > 0) {
+        // Only update state with new, unique news items
+        setNewsHealth((prevNews) => [...prevNews, ...uniqueFetchedNews]);
+        setLoadingCards(false);
       }
-    } catch (err) {
-      setError(err.message); // Handle error
     }
-  };
+  } catch (err) {
+    setError(err.message); // Handle error
+  }
+};
 
   // store to the news state
   const handleStoreAllTechnologyNews = () => {
